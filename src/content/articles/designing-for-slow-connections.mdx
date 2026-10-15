@@ -1,0 +1,21 @@
+Plenty of visitors are on a weak mobile signal, a crowded café network or an older phone. Designing for them makes the site better for everyone.
+
+## Start with a budget
+
+I set limits before building: a small amount of JavaScript on first load, one font family loaded in two files and images that never exceed the size they are displayed at.
+
+## Habits that help
+
+- Serve images in modern formats and at the right size
+- Load fonts with a sensible fallback so text appears immediately
+- Keep animation on the compositor, using transform and opacity only
+- Delay anything below the fold until the visitor scrolls near it
+- Make every important action work before the extra scripts arrive
+
+## Test the real thing
+
+Throttling the network in the browser tools is a good start, but nothing beats trying the site on an actual mid-range phone with a patchy connection.
+
+> A fast site is a design decision, not a last-minute cleanup.
+
+If a feature cannot be made fast, I either simplify it or offer a lighter version. Visitors rarely notice the effects that were left out, but they always notice a slow page.
