@@ -2,44 +2,40 @@ import { ClipReveal } from "@/components/ui/clip-reveal"
 import { CoverImage } from "@/components/ui/cover-image"
 import { Reveal } from "@/components/ui/reveal"
 import { cn } from "@/lib/cn"
+import { pad2 } from "@/lib/format"
 import type { Project } from "@/types/content"
 
 export function CaseContent({ project }: { project: Project }) {
-  const sections = [
-    { label: "The challenge", text: project.challenge },
-    { label: "The approach", text: project.approach },
-    { label: "The result", text: project.result },
-  ]
-
   return (
-    <div className="gutter container-page pt-24 pb-24 md:pt-40 md:pb-40">
-      <div className="flex flex-col gap-16 md:gap-24">
-        {sections.map((section) => (
-          <Reveal key={section.label}>
-            <section className="grid gap-4 border-t border-line pt-8 md:grid-cols-12 md:gap-10">
-              <h2 className="label text-accent md:col-span-3">{section.label}</h2>
-              <p className="font-display text-statement md:col-span-9">{section.text}</p>
-            </section>
-          </Reveal>
-        ))}
+    <div className="pt-20 md:pt-32">
+      <div className="gutter container-page">
+        <Reveal>
+          <p className="label mb-8 text-accent">( Overview )</p>
+          <p className="max-w-5xl font-display text-statement">{project.summary}</p>
+        </Reveal>
       </div>
 
-      {project.metrics ? (
-        <Reveal>
-          <dl className="mt-24 grid gap-10 border-t border-line pt-10 sm:grid-cols-2 md:mt-40 md:grid-cols-3">
-            {project.metrics.map((metric) => (
-              <div key={metric.label} className="flex flex-col">
-                <dt className="label order-2 mt-3 text-muted">{metric.label}</dt>
-                <dd className="font-display text-numeral">{metric.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-      ) : null}
+      <section aria-label="What I built" className="mt-20 md:mt-32">
+        <div className="gutter container-page">
+          <p className="label mb-8 text-accent">( What I built )</p>
+        </div>
+        <ol className="border-t border-line">
+          {project.highlights.map((highlight, index) => (
+            <li key={highlight} className="border-b border-line">
+              <Reveal>
+                <div className="gutter container-page grid items-baseline gap-3 py-6 md:grid-cols-[4rem_1fr] md:gap-8 md:py-8">
+                  <span className="label text-faint">({pad2(index + 1)})</span>
+                  <p className="max-w-3xl text-xl font-medium md:text-2xl">{highlight}</p>
+                </div>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-      <ul className="mt-24 grid gap-6 md:mt-40 md:grid-cols-2 md:gap-8">
+      <ul className="gutter container-page mt-20 grid gap-6 pb-20 md:mt-32 md:grid-cols-2 md:gap-8 md:pb-32">
         {project.gallery.map((item, index) => (
-          <li key={`${item.cover.alt}-${index}`} className={cn(index === 0 && "md:col-span-2")}>
+          <li key={`${item.caption}-${index}`} className={cn(index === 0 && "md:col-span-2")}>
             <ClipReveal
               className={cn(
                 "relative overflow-hidden bg-surface",
@@ -52,24 +48,10 @@ export function CaseContent({ project }: { project: Project }) {
                 label={item.caption}
               />
             </ClipReveal>
-            {item.caption ? <p className="label mt-3 text-faint">{item.caption}</p> : null}
+            <p className="label mt-3 text-faint">{item.caption}</p>
           </li>
         ))}
       </ul>
-
-      {project.quote ? (
-        <Reveal>
-          <figure className="mt-24 border-t border-line pt-12 md:mt-40">
-            <blockquote className="max-w-5xl font-display text-statement">
-              &ldquo;{project.quote.text}&rdquo;
-            </blockquote>
-            <figcaption className="mt-8">
-              <p className="font-display text-lg font-bold">{project.quote.author}</p>
-              <p className="label mt-1 text-muted">{project.quote.role}</p>
-            </figcaption>
-          </figure>
-        </Reveal>
-      ) : null}
     </div>
   )
 }

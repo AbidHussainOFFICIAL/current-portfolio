@@ -4,18 +4,17 @@ import { motion, useMotionValue, useSpring } from "motion/react"
 import { useEffect, useState } from "react"
 
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { cn } from "@/lib/cn"
 import { SPRING_CURSOR_OPTIONS } from "@/lib/motion"
-
-type Mode = "default" | "hover" | "view"
 
 const INTERACTIVE = "a, button, [role='button'], input, textarea, select, summary, label"
 
-const SIZES: Record<Mode, number> = { default: 12, hover: 56, view: 96 }
+const SIZE_DEFAULT = 12
+const SIZE_HOVER = 56
+const SIZE_LABEL = 88
 
 /**
- * Custom cursor for mouse users. Elements with data-cursor="View" show a labelled bubble,
- * links and buttons grow it.
+ * Noir-style cursor for mouse users: a small white dot that inverts whatever is under it.
+ * It grows over links and buttons, and shows a label over elements with data-cursor="Label".
  */
 export function Cursor() {
   const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)")
@@ -23,7 +22,7 @@ export function Cursor() {
   const y = useMotionValue(-100)
   const springX = useSpring(x, SPRING_CURSOR_OPTIONS)
   const springY = useSpring(y, SPRING_CURSOR_OPTIONS)
-  const [mode, setMode] = useState<Mode>("default")
+  const [size, setSize] = useState(SIZE_DEFAULT)
   const [label, setLabel] = useState("")
   const [visible, setVisible] = useState(false)
 
@@ -42,15 +41,17 @@ export function Cursor() {
 
     function onOver(event: PointerEvent) {
       if (!(event.target instanceof Element)) return
-      const labelled = event.target.closest("[data-cursor]")
-      if (labelled) {
-        setMode("view")
-        setLabel(labelled.getAttribute("data-cursor") ?? "")
-      } else if (event.target.closest(INTERACTIVE)) {
-        setMode("hover")
+      const tagged = event.target.closest("[data-cursor]")
+      const text = tagged?.getAttribute("data-cursor") ?? ""
+
+      if (tagged && text) {
+        setSize(SIZE_LABEL)
+        setLabel(text)
+      } else if (tagged || event.target.closest(INTERACTIVE)) {
+        setSize(SIZE_HOVER)
         setLabel("")
       } else {
-        setMode("default")
+        setSize(SIZE_DEFAULT)
         setLabel("")
       }
     }
@@ -76,22 +77,19 @@ export function Cursor() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed top-0 left-0 z-(--z-cursor)"
+      className="pointer-events-none fixed top-0 left-0 z-(--z-cursor) mix-blend-difference"
       style={{ x: springX, y: springY }}
     >
       <motion.div
-        className={cn(
-          "-translate-x-1/2 -translate-y-1/2 grid place-items-center rounded-full",
-          mode === "view" ? "bg-accent text-ink" : "bg-paper mix-blend-difference",
-        )}
-        animate={{
-          width: SIZES[mode],
-          height: SIZES[mode],
-          opacity: visible ? 1 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="-translate-x-1/2 -translate-y-1/2 grid place-items-center rounded-full bg-white"
+        animate={{ width: size, height: size, opacity: visible ? 1 : 0 }}
+        transition={{ type: "spring", stiffness: 350, damping: 28 }}
       >
-        {mode === "view" ? <span className="label">{label}</span> : null}
+        {label ? (
+          <span className="text-[11px] font-medium tracking-[0.15em] text-black uppercase select-none">
+            {label}
+          </span>
+        ) : null}
       </motion.div>
     </motion.div>
   )

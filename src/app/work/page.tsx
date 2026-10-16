@@ -1,35 +1,39 @@
 import type { Metadata } from "next"
 
-import { WorkGrid } from "@/components/sections/work-grid"
-import { MaskLine } from "@/components/ui/mask-line"
+import { ProjectCard } from "@/components/ui/project-card"
+import { Reveal } from "@/components/ui/reveal"
 import { allProjects } from "@/lib/content"
 import { pad2 } from "@/lib/format"
 
 export const metadata: Metadata = {
-  title: "Work",
-  description: "Selected websites, web apps and design systems, with a case study for each.",
+  title: "All Projects",
+  description: "Websites and web apps I have built, with a page for each project.",
   alternates: { canonical: "/work" },
-  openGraph: { url: "/work", title: "Work" },
+  openGraph: { url: "/work", title: "All Projects" },
 }
 
 export default function WorkPage() {
   return (
-    <main id="main" className="gutter container-page pt-32 pb-24 md:pt-44 md:pb-40">
-      <header className="mb-14 md:mb-24">
-        <div className="flex items-center justify-between border-b border-line pb-4">
-          <p className="label text-muted">All work</p>
-          <p className="label text-faint">{pad2(allProjects.length)} projects</p>
+    <main id="main" className="gutter container-page pt-32 pb-24 md:pt-40 md:pb-32">
+      <header className="mb-14 flex items-end justify-between gap-6">
+        <div>
+          <p className="label mb-6 text-accent">( Index )</p>
+          <h1 className="font-display text-6xl font-extrabold tracking-tighter uppercase md:text-8xl">
+            All Projects
+          </h1>
         </div>
-        <h1 className="mt-10 font-display text-section uppercase">
-          <MaskLine immediate>Work</MaskLine>
-        </h1>
-        <p className="mt-8 max-w-xl text-lead text-muted">
-          Websites, web apps and design systems for founders, studios and teams. Open any project for the full case
-          study.
-        </p>
+        <p className="label text-muted">( {pad2(allProjects.length)} projects )</p>
       </header>
 
-      <WorkGrid projects={allProjects} />
+      <ul className="grid gap-x-8 gap-y-16 md:grid-cols-2">
+        {allProjects.map((project, index) => (
+          <li key={project.slug} className={index % 2 === 1 ? "md:mt-24" : undefined}>
+            <Reveal delay={(index % 2) * 0.1}>
+              <ProjectCard project={project} sizes="(min-width: 768px) 50vw, 100vw" priority={index < 2} />
+            </Reveal>
+          </li>
+        ))}
+      </ul>
     </main>
   )
 }

@@ -1,5 +1,5 @@
 export interface Cover {
-  /** Path under /public, e.g. "/images/work/lumen-cover.jpg". Leave out to show the gradient. */
+  /** Path under /public, e.g. "/images/work/zivora.jpg". Leave out to show the gradient. */
   src?: string
   alt: string
   /** CSS gradient used as the placeholder and as the fallback when src is missing. */
@@ -22,6 +22,13 @@ export interface MetaRow {
   value: string
 }
 
+export interface ParallaxQuote {
+  label: string
+  /** Each entry is shown on its own line. */
+  lines: string[]
+  by: string
+}
+
 export interface SiteConfig {
   name: string
   role: string
@@ -34,10 +41,6 @@ export interface SiteConfig {
   url: string
   /** Default meta description. */
   description: string
-  availability: {
-    open: boolean
-    label: string
-  }
   intro: string
   portrait: Cover
   socials: Social[]
@@ -48,6 +51,8 @@ export interface SiteConfig {
     paragraphs: string[]
     meta: MetaRow[]
   }
+  quote: ParallaxQuote
+  /** Path of the résumé PDF under /public. */
   cvUrl: string
 }
 
@@ -58,20 +63,9 @@ export interface NavItem {
   href: string
 }
 
-export interface Metric {
-  value: string
-  label: string
-}
-
-export interface ProjectQuote {
-  text: string
-  author: string
-  role: string
-}
-
 export interface GalleryItem {
   cover: Cover
-  caption?: string
+  caption: string
 }
 
 export interface Project {
@@ -79,23 +73,20 @@ export interface Project {
   title: string
   category: string
   year: number
-  featured: boolean
-  client: string
   role: string
-  timeline: string
   stack: string[]
   links?: {
     live?: string
     repo?: string
   }
   cover: Cover
+  /** One or two sentences, shown under the title. */
   intro: string
-  challenge: string
-  approach: string
-  result: string
-  metrics?: Metric[]
+  /** The overview paragraph on the project page. */
+  summary: string
+  /** Short statements about what was built. */
+  highlights: string[]
   gallery: GalleryItem[]
-  quote?: ProjectQuote
 }
 
 export interface Service {
@@ -106,30 +97,34 @@ export interface Service {
 }
 
 export interface Role {
+  index: string
   years: string
   title: string
-  company: string
-  current?: boolean
+  organisation: string
+  description: string
+  tags: string[]
 }
 
-export interface Certificate {
-  title: string
-  issuer: string
-  year: number
-  credentialId: string
-  /** Verification link. Leave out when there is none. */
-  url?: string
+export interface SkillGroup {
+  name: string
+  items: string[]
 }
 
-export interface Article {
+export interface Post {
   slug: string
+  /** Where the post was published, e.g. "LinkedIn". */
+  platform: string
   title: string
   excerpt: string
-  tag: string
   /** ISO date, e.g. "2026-09-12". */
   date: string
-  readingTime: string
+  /** Link to the original post on the platform. */
+  url: string
   cover: Cover
+  /** Paragraphs of the post text. */
+  body: string[]
+  /** One line pulled out of the post and shown large. */
+  quote: string
 }
 
 export interface Testimonial {

@@ -1,4 +1,4 @@
-import type { Transition, Variants } from "motion/react"
+import type { Variants } from "motion/react"
 
 type Bezier = [number, number, number, number]
 
@@ -14,42 +14,20 @@ export const DURATION = {
   wipe: 0.6,
 } as const
 
-/** Stagger gaps in seconds */
-export const STAGGER = {
-  letters: 0.06,
-  items: 0.08,
-} as const
+/** Gap in seconds between letters in a staggered headline */
+const LETTER_STAGGER = 0.06
 
-/** Springs. The plain option objects are for useSpring, the Transition versions for animate props. */
+/** Spring options for useSpring */
 export const SPRING_CURSOR_OPTIONS = { stiffness: 500, damping: 40, mass: 0.6 }
 export const SPRING_SOFT_OPTIONS = { stiffness: 200, damping: 25, mass: 0.5 }
-
-export const SPRING_CURSOR: Transition = { type: "spring", ...SPRING_CURSOR_OPTIONS }
-export const SPRING_SOFT: Transition = { type: "spring", ...SPRING_SOFT_OPTIONS }
 
 /** Scroll reveal: play once, start slightly before the element is fully in view. */
 export const VIEWPORT_ONCE = { once: true, margin: "-80px" } as const
 
-/** Fade and rise. Use with initial="hidden" and whileInView="show". */
-export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: DURATION.slow, ease: EASE_OUT },
-  },
-}
-
-/** Parent that staggers its children. */
-export const staggerItems: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: STAGGER.items } },
-}
-
 /** Parent that staggers letters. */
 export const staggerLetters: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: STAGGER.letters } },
+  show: { transition: { staggerChildren: LETTER_STAGGER } },
 }
 
 /** One letter or line sliding up out of a clipped wrapper. */

@@ -1,54 +1,58 @@
-import { ArrowUpRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { BackToTop } from "@/components/ui/back-to-top"
 import { CopyEmail } from "@/components/ui/copy-email"
 import { LiveClock } from "@/components/ui/live-clock"
 import { Magnetic } from "@/components/ui/magnetic"
-import { MaskLine } from "@/components/ui/mask-line"
 import { site } from "@/content/site"
 
-/** Closing section. It is also the footer, so it is rendered once in the root layout. */
+/** Closing section. It is also the footer, so it is rendered once in the root layout and fits one screen. */
 export function Contact() {
   return (
-    <footer id="contact" className="section-pad border-t border-line">
-      <div className="gutter container-page">
-        <p className="label border-b border-line pb-4 text-muted">
-          <span className="text-accent">07</span> / Contact
-        </p>
+    <footer id="contact" className="flex min-h-svh flex-col border-t border-line pt-8 md:pt-10">
+      <div className="gutter container-page flex flex-1 flex-col">
+        <p className="label text-accent">( Got a project? )</p>
 
-        <div className="mt-10 grid gap-12 md:grid-cols-12 md:items-end">
-          <h2 className="font-display text-section uppercase md:col-span-9">
-            <MaskLine>Let&rsquo;s work</MaskLine>
-            <MaskLine delay={0.1}>together</MaskLine>
-          </h2>
+        <div className="flex flex-1 flex-col justify-center gap-10 py-10 md:flex-row md:items-center md:justify-between">
+          {/* Hovering swaps the colours of the two lines, as on Kern. */}
+          <a href={`mailto:${site.email}`} data-cursor="" className="group block select-none">
+            <span className="block font-display text-[length:min(14vw,17svh)] leading-[0.85] font-extrabold tracking-tighter text-paper uppercase transition-colors duration-500 group-hover:text-accent">
+              Let&rsquo;s work
+            </span>
+            <span className="flex items-center gap-[0.15em] font-display text-[length:min(14vw,17svh)] leading-[0.85] font-extrabold tracking-tighter text-accent uppercase transition-colors duration-500 group-hover:text-paper">
+              together
+              <ArrowRight
+                className="size-[0.55em] shrink-0 transition-transform duration-500 ease-out-expo group-hover:translate-x-3"
+                strokeWidth={2.5}
+                aria-hidden
+              />
+            </span>
+          </a>
 
-          <div className="md:col-span-3 md:justify-self-end">
-            <Magnetic>
-              <a
-                href={`mailto:${site.email}`}
-                className="group grid size-36 place-items-center rounded-full bg-accent text-ink transition-transform duration-500 hover:scale-105 md:size-44"
-              >
-                <span className="label flex items-center gap-2">
-                  Say hello
-                  <ArrowUpRight className="size-4" aria-hidden />
-                </span>
-              </a>
-            </Magnetic>
-          </div>
+          <Magnetic>
+            <a
+              href={`mailto:${site.email}`}
+              className="grid size-36 place-items-center rounded-full bg-accent text-ink transition-transform duration-500 hover:scale-105 md:size-48"
+            >
+              <span className="label">Say hello</span>
+            </a>
+          </Magnetic>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 md:mt-24 md:flex-row md:items-center md:gap-10">
+        <div className="flex flex-col gap-3 pb-8 md:flex-row md:items-center md:gap-8">
           <a
             href={`mailto:${site.email}`}
-            className="link-sweep w-fit font-display text-2xl font-bold tracking-tight md:text-4xl"
+            className="link-sweep w-fit font-display text-xl font-bold tracking-tight md:text-3xl"
           >
             {site.email}
           </a>
           <CopyEmail email={site.email} />
         </div>
+      </div>
 
-        <div className="mt-20 grid gap-10 border-t border-line pt-8 md:mt-32 md:grid-cols-12">
-          <ul className="flex flex-wrap gap-x-8 gap-y-3 md:col-span-6">
+      <div className="border-t border-line">
+        <div className="gutter container-page grid gap-6 py-6 md:grid-cols-12 md:items-center">
+          <ul className="flex flex-wrap gap-x-8 gap-y-2 md:col-span-5">
             {site.socials.map((social) => (
               <li key={social.label}>
                 <a
@@ -64,19 +68,19 @@ export function Contact() {
             ))}
           </ul>
 
-          <div className="label flex flex-col gap-3 text-muted md:col-span-3">
-            <p>
+          <p className="label flex flex-wrap gap-x-4 text-muted md:col-span-4">
+            <span>
               {site.city}, {site.country}
-            </p>
+            </span>
             <LiveClock timeZone={site.timezone} label="Local time" />
-          </div>
+          </p>
 
           <div className="flex md:col-span-3 md:justify-end">
             <BackToTop />
           </div>
         </div>
 
-        <p className="label mt-14 text-faint">
+        <p className="gutter container-page pb-6 label text-faint">
           &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
         </p>
       </div>

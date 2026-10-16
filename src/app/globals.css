@@ -6,15 +6,18 @@
 @theme inline {
   --color-ink: #0b0b0c;
   --color-surface: #131315;
-  --color-line: rgba(236, 235, 230, 0.12);
-  --color-faint: #6c6b67;
-  --color-muted: #9a9994;
+  --color-line: rgba(236, 235, 230, 0.14);
+  --color-faint: #86857f;
+  --color-muted: #a9a8a2;
   --color-paper: #ecebe6;
   --color-accent: #5cf2c4;
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Medium rounding for buttons, tags and tabs: between square and pill. */
+  --radius-ui: 0.625rem;
 
   /* Type scale (each size carries its own line height, tracking and weight) */
   --text-hero: clamp(4.5rem, 16vw, 17rem);
@@ -27,6 +30,11 @@
   --text-section--letter-spacing: -0.035em;
   --text-section--font-weight: 700;
 
+  --text-heading: clamp(3rem, 6.5vw, 6.5rem);
+  --text-heading--line-height: 0.92;
+  --text-heading--letter-spacing: -0.04em;
+  --text-heading--font-weight: 800;
+
   --text-statement: clamp(1.75rem, 4.2vw, 4rem);
   --text-statement--line-height: 1.12;
   --text-statement--letter-spacing: -0.02em;
@@ -36,6 +44,11 @@
   --text-row--line-height: 1;
   --text-row--letter-spacing: -0.025em;
   --text-row--font-weight: 700;
+
+  --text-subrow: clamp(1.25rem, 2.2vw, 2rem);
+  --text-subrow--line-height: 1;
+  --text-subrow--letter-spacing: -0.02em;
+  --text-subrow--font-weight: 700;
 
   --text-numeral: clamp(3rem, 6vw, 5.5rem);
   --text-numeral--line-height: 1;
@@ -52,9 +65,9 @@
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-expo: cubic-bezier(0.76, 0, 0.24, 1);
 
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-grain: grain 1.2s steps(6) infinite;
-  --animate-blink: blink 1.4s ease-in-out infinite;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 55s linear infinite;
+  --animate-grain: grain 0.9s steps(4) infinite;
 
   @keyframes marquee {
     from {
@@ -65,34 +78,30 @@
     }
   }
 
+  @keyframes marquee-reverse {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
   @keyframes grain {
     0% {
       transform: translate(0, 0);
     }
-    20% {
-      transform: translate(-3%, 2%);
+    25% {
+      transform: translate(-8%, 6%);
     }
-    40% {
-      transform: translate(2%, -3%);
+    50% {
+      transform: translate(6%, -9%);
     }
-    60% {
-      transform: translate(-2%, -1%);
-    }
-    80% {
-      transform: translate(3%, 3%);
+    75% {
+      transform: translate(-5%, -4%);
     }
     100% {
       transform: translate(0, 0);
-    }
-  }
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.3;
     }
   }
 }
@@ -183,10 +192,10 @@ html.cursor-active * {
 }
 
 @utility section-pad {
-  padding-block: clamp(96px, 12vw, 192px);
+  padding-block: clamp(72px, 9vw, 144px);
 }
 
-/* Mono label, e.g. "01 / Work" */
+/* Mono label, e.g. "( Work )" */
 @utility label {
   font-family: var(--font-mono);
   font-size: var(--text-label);
@@ -195,12 +204,47 @@ html.cursor-active * {
   text-transform: uppercase;
 }
 
-@utility hairline-top {
-  border-top: 1px solid var(--color-line);
+/* Outlined text, used for every second word in the marquee */
+@utility text-stroke {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-paper);
 }
 
-@utility hairline-bottom {
-  border-bottom: 1px solid var(--color-line);
+/* Button with medium rounding */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-ui);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  transition:
+    border-color 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo),
+    background-color 0.4s var(--ease-out-expo);
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
+
+/* Small tag or chip with medium rounding */
+@utility tag {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-ui);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 /* Skip link, visible only when focused */
@@ -210,7 +254,7 @@ html.cursor-active * {
   left: 0.75rem;
   z-index: 500;
   padding: 0.5rem 1rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-ui);
   background: var(--color-accent);
   color: var(--color-ink);
   font-family: var(--font-mono);
@@ -246,18 +290,64 @@ html.cursor-active * {
 /* ------------------------------------------------------------------ */
 .grain {
   position: fixed;
-  inset: -50%;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
   z-index: var(--z-grain);
   pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
   animation: var(--animate-grain);
 }
 
-@media (hover: none), (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .grain {
     animation: none;
   }
+}
+
+/* ------------------------------------------------------------------ */
+/* Preloader counter. Runs in pure CSS so it starts on first paint,    */
+/* before React has loaded. Keep 1.8s in sync with PRELOADER_MS.       */
+/* ------------------------------------------------------------------ */
+@property --preloader-n {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes preloader-count {
+  from {
+    --preloader-n: 0;
+  }
+  to {
+    --preloader-n: 100;
+  }
+}
+
+@keyframes preloader-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.preloader-count {
+  counter-reset: preloader-n var(--preloader-n);
+  animation: preloader-count 1.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.preloader-count::before {
+  content: counter(preloader-n, decimal-leading-zero);
+}
+
+.preloader-bar {
+  transform-origin: left;
+  animation: preloader-bar 1.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 /* ------------------------------------------------------------------ */
@@ -282,143 +372,6 @@ html.lenis body {
 
 .lenis.lenis-smooth iframe {
   pointer-events: none;
-}
-
-/* ------------------------------------------------------------------ */
-/* Journal article typography (MDX content)                            */
-/* ------------------------------------------------------------------ */
-.prose-journal {
-  font-size: var(--text-lead);
-  line-height: 1.7;
-  color: color-mix(in srgb, var(--color-paper) 85%, transparent);
-}
-
-.prose-journal > * + * {
-  margin-top: 1.5rem;
-}
-
-.prose-journal h2 {
-  margin-top: 3.5rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--color-paper);
-}
-
-.prose-journal h3 {
-  margin-top: 2.5rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2vw, 1.625rem);
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--color-paper);
-}
-
-.prose-journal strong {
-  color: var(--color-paper);
-  font-weight: 600;
-}
-
-.prose-journal ul,
-.prose-journal ol {
-  padding-left: 1.5rem;
-}
-
-.prose-journal ul {
-  list-style: disc;
-}
-
-.prose-journal ol {
-  list-style: decimal;
-}
-
-.prose-journal li + li {
-  margin-top: 0.5rem;
-}
-
-.prose-journal li::marker {
-  color: var(--color-accent);
-}
-
-.prose-journal blockquote {
-  margin-block: 3rem;
-  padding-left: 2rem;
-  border-left: 2px solid var(--color-accent);
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--color-paper);
-}
-
-.prose-journal hr {
-  border: 0;
-  border-top: 1px solid var(--color-line);
-  margin-block: 3rem;
-}
-
-.prose-journal a {
-  color: var(--color-accent);
-}
-
-/* Inline code */
-.prose-journal :not(pre) > code {
-  padding: 0.15em 0.4em;
-  border-radius: 4px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  color: var(--color-paper);
-}
-
-/* Code blocks produced by rehype-pretty-code */
-.prose-journal figure[data-rehype-pretty-code-figure] {
-  margin-block: 2rem;
-}
-
-.prose-journal pre {
-  overflow-x: auto;
-  padding: 1.25rem 0;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  line-height: 1.7;
-}
-
-.prose-journal pre code {
-  display: grid;
-  min-width: 100%;
-  width: max-content;
-  background: transparent;
-  border: 0;
-  padding: 0;
-}
-
-.prose-journal pre [data-line] {
-  padding-inline: 1.25rem;
-}
-
-.prose-journal [data-rehype-pretty-code-title] {
-  padding: 0.6rem 1.25rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-bottom: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  letter-spacing: var(--text-label--letter-spacing);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-/* rehype-pretty-code themes tokens through CSS variables on each span */
-.prose-journal code[data-theme] span,
-.prose-journal pre[data-theme] span {
-  color: var(--shiki-dark, inherit);
 }
 
 /* ------------------------------------------------------------------ */

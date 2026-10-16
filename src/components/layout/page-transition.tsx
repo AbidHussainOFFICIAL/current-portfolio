@@ -61,12 +61,12 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         if (hash.length > 1) {
           const element = document.getElementById(hash.slice(1))
           if (element) {
-            if (lenis) lenis.scrollTo(element, { offset: 0, immediate: reduced === true })
+            if (lenis) lenis.scrollTo(element, { offset: 0, immediate: reduced === true, force: true })
             else element.scrollIntoView({ behavior: reduced ? "auto" : "smooth" })
             history.pushState(null, "", href)
           }
         } else if (lenis) {
-          lenis.scrollTo(0, { immediate: reduced === true })
+          lenis.scrollTo(0, { immediate: reduced === true, force: true })
         } else {
           window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" })
         }

@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react"
+
 import { CoverImage } from "@/components/ui/cover-image"
 import { TransitionLink } from "@/components/ui/transition-link"
 import type { Project } from "@/types/content"
@@ -8,22 +10,25 @@ interface ProjectCardProps {
   priority?: boolean
 }
 
-/** Cover image with title, category and year underneath. Links to the case study. */
+/** Tile for the All Works page: cover with a category tag, title and year underneath. */
 export function ProjectCard({ project, sizes, priority }: ProjectCardProps) {
   return (
     <TransitionLink href={`/work/${project.slug}`} className="group block" data-cursor="View">
-      <div className="relative aspect-[4/3] overflow-hidden bg-surface">
-        <div className="absolute inset-0 transition-transform duration-[900ms] ease-out-expo group-hover:scale-105">
+      <div className="relative aspect-[3/2] overflow-hidden bg-surface">
+        <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
           <CoverImage cover={project.cover} sizes={sizes} priority={priority} label={project.title} />
         </div>
+        <span className="tag absolute top-4 left-4 bg-ink/80 text-paper backdrop-blur-sm">{project.category}</span>
       </div>
       <div className="mt-5 flex items-baseline justify-between gap-6">
-        <h3 className="font-display text-row uppercase transition-colors duration-500 group-hover:text-accent">
+        <h2 className="font-display text-2xl font-bold tracking-tight uppercase transition-transform duration-500 ease-out-expo group-hover:translate-x-3 md:text-4xl">
           {project.title}
-        </h3>
-        <p className="label shrink-0 text-muted">{project.year}</p>
+        </h2>
+        <p className="label flex shrink-0 items-center gap-2 text-muted">
+          {project.year}
+          <ArrowUpRight className="size-4 transition-colors group-hover:text-accent" aria-hidden />
+        </p>
       </div>
-      <p className="label mt-2 text-faint">{project.category}</p>
     </TransitionLink>
   )
 }

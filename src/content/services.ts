@@ -3,30 +3,30 @@ import type { Service } from "@/types/content"
 export const services: Service[] = [
   {
     index: "01",
-    name: "Web Design and UI",
+    name: "Full-Stack Web Apps",
     description:
-      "Interfaces designed in the browser as much as in Figma. I define the layout, type and motion together so nothing gets lost between design and build.",
-    tags: ["UI design", "Prototyping", "Design systems", "Brand sites"],
+      "Features owned end to end: the data model, the REST API and a responsive interface on top, built with the MERN stack and TypeScript.",
+    tags: ["Next.js", "React", "Node.js", "Express.js", "MongoDB"],
   },
   {
     index: "02",
-    name: "Front-end Engineering",
+    name: "E-Commerce and PWAs",
     description:
-      "Accessible, responsive front-ends in React and Next.js with clean TypeScript, sensible structure and components that are easy to extend.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "Stores and installable web apps with catalog, cart and checkout flows, designed mobile-first for the way people really shop.",
+    tags: ["PWA", "Cart and checkout", "Cloudinary", "Vercel"],
   },
   {
     index: "03",
-    name: "Back-end and APIs",
+    name: "APIs and Databases",
     description:
-      "The server side done properly: data models, authentication, APIs and integrations that stay simple to maintain once the project is live.",
-    tags: ["Node.js", "PostgreSQL", "REST and tRPC", "Auth"],
+      "Clean REST APIs and well-structured data models that give secure access to information and stay simple to maintain.",
+    tags: ["REST API design", "MongoDB", "PostgreSQL", "Firebase", "Supabase"],
   },
   {
     index: "04",
-    name: "Motion and Performance",
+    name: "Portfolio and Business Sites",
     description:
-      "Animation that supports the content, and performance budgets that keep it fast on ordinary phones and ordinary connections.",
-    tags: ["Motion", "Core Web Vitals", "Accessibility", "SEO"],
+      "Fast, accessible marketing sites and portfolios with considered typography, smooth motion and clean, editable content.",
+    tags: ["Next.js", "Tailwind CSS", "Motion", "SEO"],
   },
 ]

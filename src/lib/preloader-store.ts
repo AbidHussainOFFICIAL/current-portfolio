@@ -1,5 +1,8 @@
 const KEY = "preloaded"
 
+/** How long the counter runs. Must match the 1.8s animations in globals.css (.preloader-count, .preloader-bar). */
+export const PRELOADER_MS = 1800
+
 const listeners = new Set<() => void>()
 
 /** Inline script for <head>: lets CSS hide the preloader before React loads. */

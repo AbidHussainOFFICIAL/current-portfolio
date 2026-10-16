@@ -1,78 +1,91 @@
 "use client"
 
+import { motion, useMotionValueEvent, useScroll } from "motion/react"
 import { usePathname } from "next/navigation"
 import { useCallback, useState } from "react"
 
-import { MobileMenu } from "@/components/layout/mobile-menu"
-import { LiveClock } from "@/components/ui/live-clock"
+import { Menu } from "@/components/layout/menu"
 import { TransitionLink } from "@/components/ui/transition-link"
 import { navItems } from "@/content/nav"
 import { site } from "@/content/site"
 import { useActiveSection } from "@/hooks/use-active-section"
 import { cn } from "@/lib/cn"
+import { DURATION, EASE_OUT } from "@/lib/motion"
 
 const SECTION_IDS = ["top", ...navItems.map((item) => item.id)] as const
+
+/** Scroll distance before the header starts hiding while scrolling down. */
+const HIDE_AFTER = 120
 
 export function Header() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const closeMenu = useCallback(() => setMenuOpen(false), [])
   const section = useActiveSection(SECTION_IDS, pathname === "/")
+  const { scrollY } = useScroll()
+
+  // Hide on the way down, show again as soon as the person scrolls up.
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0
+    if (latest > previous && latest > HIDE_AFTER) setHidden(true)
+    else if (latest < previous) setHidden(false)
+  })
 
   let current: string | null = null
   if (pathname === "/") current = section === "top" ? null : section
   else if (pathname.startsWith("/work")) current = "work"
-  else if (pathname.startsWith("/journal")) current = "journal"
+  else if (pathname.startsWith("/posts")) current = "posts"
 
   return (
     <>
-      <header className="gutter fixed inset-x-0 top-0 z-(--z-header) flex items-center justify-between py-5 text-paper mix-blend-difference">
-        <div className="flex items-center gap-6">
+      <motion.header
+        className={cn(
+          "fixed inset-x-0 top-0 z-(--z-header)",
+          menuOpen ? "text-ink" : "text-white mix-blend-difference",
+        )}
+        animate={{ y: hidden && !menuOpen ? "-100%" : "0%" }}
+        transition={{ duration: DURATION.base, ease: EASE_OUT }}
+      >
+        <div className="gutter flex items-center justify-between py-6">
           <TransitionLink
             href="/"
-            className="font-display text-lg font-bold tracking-tight"
+            data-cursor=""
             onNavigate={closeMenu}
+            className="font-display text-xl font-semibold tracking-tight"
           >
             {site.name}
           </TransitionLink>
-          <LiveClock
-            timeZone={site.timezone}
-            label="KHI"
-            className="label hidden text-paper/70 md:inline"
-          />
+
+          <div className="flex items-center gap-8">
+            <span className="label hidden opacity-60 md:block">
+              {site.city} — {site.country}
+            </span>
+            <button
+              type="button"
+              data-cursor=""
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="site-menu"
+              onClick={() => setMenuOpen((open) => !open)}
+              className="flex w-10 flex-col items-end gap-[6px]"
+            >
+              <motion.span
+                className="block h-[2px] bg-current"
+                animate={{ width: menuOpen ? 32 : 40, rotate: menuOpen ? 45 : 0, y: menuOpen ? 4 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                className="block h-[2px] bg-current"
+                animate={{ width: menuOpen ? 32 : 24, rotate: menuOpen ? -45 : 0, y: menuOpen ? -4 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </button>
+          </div>
         </div>
+      </motion.header>
 
-        <nav aria-label="Primary" className="hidden xl:block">
-          <ul className="flex items-center gap-8">
-            {navItems.map((item) => (
-              <li key={item.id}>
-                <TransitionLink
-                  href={item.href}
-                  aria-current={current === item.id ? "true" : undefined}
-                  className={cn(
-                    "label link-sweep pb-1 transition-opacity",
-                    current === item.id ? "opacity-100" : "opacity-60 hover:opacity-100",
-                  )}
-                >
-                  {item.label}
-                </TransitionLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <button
-          type="button"
-          className="label xl:hidden"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? "Close" : "Menu"}
-        </button>
-      </header>
-
-      <MobileMenu open={menuOpen} current={current} onClose={closeMenu} />
+      <Menu open={menuOpen} current={current} onClose={closeMenu} />
     </>
   )
 }

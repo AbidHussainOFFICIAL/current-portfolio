@@ -8,7 +8,6 @@ import { ClipReveal } from "@/components/ui/clip-reveal"
 import { CountUp } from "@/components/ui/count-up"
 import { CoverImage } from "@/components/ui/cover-image"
 import { Reveal } from "@/components/ui/reveal"
-import { SectionHeading } from "@/components/ui/section-heading"
 import { site } from "@/content/site"
 
 function Word({
@@ -33,9 +32,9 @@ export function About() {
   const words = site.about.statement.split(" ")
 
   return (
-    <section id="about" className="section-pad border-t border-line">
-      <div className="gutter container-page">
-        <SectionHeading index="02" label="About" title="About" />
+    <section id="about" className="border-t border-line">
+      <div className="gutter container-page section-pad">
+        <p className="label mb-10 text-accent">( About )</p>
 
         <p ref={statementRef} className="flex max-w-6xl flex-wrap gap-x-[0.28em] font-display text-statement">
           <span className="sr-only">{site.about.statement}</span>
@@ -48,7 +47,7 @@ export function About() {
           ))}
         </p>
 
-        <div className="mt-20 grid gap-14 md:mt-32 md:grid-cols-12 md:gap-10">
+        <div className="mt-16 grid gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-5">
             <ClipReveal className="relative aspect-[4/5] overflow-hidden bg-surface">
               <CoverImage cover={site.portrait} sizes="(min-width: 768px) 40vw, 100vw" label={site.name} />
@@ -76,21 +75,20 @@ export function About() {
             </Reveal>
 
             <Reveal>
-              <a
-                href={site.cvUrl}
-                download
-                className="group label mt-12 inline-flex items-center gap-3 rounded-full border border-line px-6 py-3 transition-colors hover:border-accent hover:text-accent"
-              >
+              <a href={site.cvUrl} download className="group btn mt-12">
                 Download CV
                 <Download className="size-4 transition-transform duration-500 group-hover:translate-y-0.5" aria-hidden />
               </a>
             </Reveal>
           </div>
         </div>
+      </div>
 
-        <dl className="mt-24 grid grid-cols-2 gap-y-12 border-t border-line pt-12 md:mt-40 md:grid-cols-4">
+      {/* The line sits outside the page gutter so it runs edge to edge. */}
+      <div className="border-t border-line">
+        <dl className="gutter container-page grid grid-cols-2 gap-x-6 gap-y-12 py-12 text-center md:grid-cols-4 md:py-16">
           {site.stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col">
+            <div key={stat.label} className="flex flex-col items-center">
               <dt className="label order-2 mt-3 text-muted">{stat.label}</dt>
               <dd className="font-display text-numeral">
                 <CountUp value={stat.value} suffix={stat.suffix} />

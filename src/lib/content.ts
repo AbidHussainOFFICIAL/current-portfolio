@@ -1,14 +1,12 @@
-import { articles as rawArticles } from "@/content/articles"
+import { posts as rawPosts } from "@/content/posts"
 import { projects } from "@/content/projects"
-import type { Article, Project } from "@/types/content"
+import type { Post, Project } from "@/types/content"
 
 /** Newest first. */
-export const allArticles: Article[] = [...rawArticles].sort((a, b) => b.date.localeCompare(a.date))
+export const allPosts: Post[] = [...rawPosts].sort((a, b) => b.date.localeCompare(a.date))
 
-/** Newest year first, order inside a year is kept as written. */
-export const allProjects: Project[] = [...projects].sort((a, b) => b.year - a.year)
-
-export const featuredProjects: Project[] = allProjects.filter((p) => p.featured)
+/** Order is kept as written in content/projects.ts. */
+export const allProjects: Project[] = [...projects]
 
 export function getProject(slug: string): Project | undefined {
   return allProjects.find((p) => p.slug === slug)
@@ -20,16 +18,16 @@ export function getNextProject(slug: string): Project {
   return allProjects[(i + 1) % allProjects.length]
 }
 
-export function getArticle(slug: string): Article | undefined {
-  return allArticles.find((a) => a.slug === slug)
+export function getPost(slug: string): Post | undefined {
+  return allPosts.find((p) => p.slug === slug)
 }
 
-/** The next article in the list, wrapping around to the first. */
-export function getNextArticle(slug: string): Article {
-  const i = allArticles.findIndex((a) => a.slug === slug)
-  return allArticles[(i + 1) % allArticles.length]
+/** The next post in the list, wrapping around to the first. */
+export function getNextPost(slug: string): Post {
+  const i = allPosts.findIndex((p) => p.slug === slug)
+  return allPosts[(i + 1) % allPosts.length]
 }
 
-export function latestArticles(count = 3): Article[] {
-  return allArticles.slice(0, count)
+export function latestPosts(count = 3): Post[] {
+  return allPosts.slice(0, count)
 }

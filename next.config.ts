@@ -1,4 +1,3 @@
-import createMDX from "@next/mdx"
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
@@ -6,7 +5,6 @@ const nextConfig: NextConfig = {
   cacheComponents: false,
   partialPrefetching: false,
 
-  pageExtensions: ["ts", "tsx", "md", "mdx"],
   poweredByHeader: false,
   reactStrictMode: true,
 
@@ -39,19 +37,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-// Turbopack cannot serialise functions, so MDX plugins are given by package name.
-const withMDX = createMDX({
-  options: {
-    rehypePlugins: [
-      [
-        "rehype-pretty-code",
-        {
-          theme: "github-dark-dimmed",
-          keepBackground: false,
-        },
-      ],
-    ],
-  },
-})
-
-export default withMDX(nextConfig)
+export default nextConfig

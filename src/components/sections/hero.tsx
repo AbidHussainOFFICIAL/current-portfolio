@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowDown } from "lucide-react"
+import { ArrowDown, Download } from "lucide-react"
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
 
@@ -14,7 +14,7 @@ export function Hero() {
   const ready = usePreloaded()
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "22%"])
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "25%"])
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   const words = site.name.toUpperCase().split(" ")
@@ -28,26 +28,29 @@ export function Hero() {
     <section
       id="top"
       ref={ref}
-      className="gutter relative flex min-h-svh flex-col justify-end overflow-clip pt-32 pb-8 md:pb-10"
+      className="gutter relative flex h-svh min-h-[34rem] flex-col overflow-clip pt-24 pb-6 md:pt-28 md:pb-8"
     >
-      {/* Soft background glows */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 -right-24 size-[28rem] rounded-full bg-accent/15 blur-[140px] md:size-[40rem]" />
-        <div className="absolute bottom-0 -left-40 size-[24rem] rounded-full bg-paper/5 blur-[140px] md:size-[36rem]" />
-      </div>
+      {/* Soft glows: radial gradients fade to nothing, so there is no visible edge. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(60% 55% at 85% 0%, rgb(92 242 196 / 0.09), transparent 70%), radial-gradient(55% 50% at 0% 100%, rgb(236 235 230 / 0.05), transparent 70%)",
+        }}
+      />
 
-      <motion.div style={{ y, opacity }} className="container-page relative w-full">
-        <motion.p className="label flex items-center gap-3 text-muted" {...fade(0)}>
-          <span
-            aria-hidden
-            className={`size-2 rounded-full ${site.availability.open ? "animate-blink bg-accent" : "bg-faint"}`}
-          />
-          {site.availability.label}
-        </motion.p>
+      <motion.div style={{ y, opacity }} className="container-page relative flex w-full flex-1 flex-col justify-between">
+        <motion.div className="flex items-start justify-between gap-6" {...fade(0)}>
+          <p className="label text-accent">( {site.role} )</p>
+          <p className="label hidden text-muted sm:block">
+            {site.city}, {site.country} · <LiveClock timeZone={site.timezone} label="KHI" />
+          </p>
+        </motion.div>
 
         <motion.h1
           aria-label={site.name}
-          className="mt-8 font-display text-hero uppercase"
+          className="font-display text-[length:min(17vw,24svh)] leading-[0.82] font-extrabold tracking-[-0.04em] uppercase select-none"
           variants={staggerLetters}
           initial="hidden"
           animate={ready ? "show" : "hidden"}
@@ -63,23 +66,20 @@ export function Hero() {
           ))}
         </motion.h1>
 
-        <div className="mt-12 grid gap-10 border-t border-line pt-8 md:grid-cols-12 md:items-end">
-          <motion.div className="md:col-span-6" {...fade(0.7)}>
-            <p className="label text-accent">{site.role}</p>
-            <p className="mt-4 max-w-xl text-lead text-muted">{site.intro}</p>
-          </motion.div>
+        <div className="grid gap-8 md:grid-cols-12 md:items-end">
+          <motion.p className="max-w-md text-muted md:col-span-6 md:text-lg" {...fade(0.7)}>
+            {site.intro}
+          </motion.p>
 
-          <motion.div className="flex flex-wrap items-center gap-x-8 gap-y-4 md:col-span-6 md:justify-end" {...fade(0.85)}>
-            <TransitionLink
-              href="/#work"
-              className="group label inline-flex items-center gap-3 rounded-full border border-line px-6 py-3 transition-colors hover:border-accent hover:text-accent"
-            >
+          <motion.div className="flex flex-wrap items-center gap-3 md:col-span-6 md:justify-end" {...fade(0.85)}>
+            <TransitionLink href="/#work" className="group btn">
               See selected work
               <ArrowDown className="size-4 transition-transform duration-500 group-hover:translate-y-1" aria-hidden />
             </TransitionLink>
-            <p className="label text-faint">
-              {site.city}, {site.country} · <LiveClock timeZone={site.timezone} label="KHI" />
-            </p>
+            <a href={site.cvUrl} download className="group btn">
+              Download CV
+              <Download className="size-4 transition-transform duration-500 group-hover:translate-y-0.5" aria-hidden />
+            </a>
           </motion.div>
         </div>
       </motion.div>

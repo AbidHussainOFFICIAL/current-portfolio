@@ -1,47 +1,43 @@
-import { PinnedGallery } from "@/components/sections/pinned-gallery"
-import { ProjectIndex } from "@/components/sections/project-index"
-import { ArrowLink } from "@/components/ui/arrow-link"
-import { Reveal } from "@/components/ui/reveal"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { ProjectCard } from "@/components/ui/project-card"
-import { allProjects, featuredProjects } from "@/lib/content"
-import { pad2 } from "@/lib/format"
+import { SplitScroll, type SplitScrollTile } from "@/components/sections/split-scroll"
+import { WorksList } from "@/components/sections/works-list"
+import { allProjects } from "@/lib/content"
+import { TransitionLink } from "@/components/ui/transition-link"
+
+/** Each project contributes its cover to the left column and its first detail shot to the right. */
+const left: SplitScrollTile[] = allProjects.map((project) => ({
+  slug: project.slug,
+  title: project.title,
+  cover: project.cover,
+}))
+
+const right: SplitScrollTile[] = allProjects.map((project) => ({
+  slug: project.slug,
+  title: project.title,
+  cover: project.gallery[0].cover,
+}))
 
 export function Work() {
   return (
-    <section id="work" className="section-pad">
-      <div className="gutter container-page">
-        <SectionHeading
-          index="01"
-          label="Work"
-          title="Selected Work"
-          aside={<p className="label text-muted">{pad2(featuredProjects.length)} featured</p>}
-        />
+    <section id="work" aria-label="Work">
+      <SplitScroll left={left} right={right} />
 
-        {/* Desktop: pinned two-column gallery */}
-        <PinnedGallery projects={featuredProjects} />
-
-        {/* Phones and tablets: simple stacked cards */}
-        <ul className="flex flex-col gap-14 lg:hidden">
-          {featuredProjects.map((project) => (
-            <li key={project.slug}>
-              <Reveal>
-                <ProjectCard project={project} sizes="100vw" />
-              </Reveal>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-24 md:mt-40">
-          <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
-            <h3 className="label text-muted">Project index</h3>
-            <p className="label text-faint">{pad2(allProjects.length)} projects</p>
-          </div>
-          <ProjectIndex projects={allProjects} />
+      <div className="section-pad">
+        <div className="gutter container-page mb-12 flex items-end justify-between gap-6 md:mb-14">
+          <h2 className="font-display text-heading uppercase">Projects</h2>
+          <TransitionLink
+            href="/work"
+            className="label link-sweep hidden pb-1 text-muted hover:text-paper md:block"
+          >
+            All projects ↗
+          </TransitionLink>
         </div>
 
-        <div className="mt-14 flex justify-end">
-          <ArrowLink href="/work">View all work</ArrowLink>
+        <WorksList projects={allProjects} />
+
+        <div className="gutter container-page mt-8 md:hidden">
+          <TransitionLink href="/work" className="label link-sweep pb-1 text-muted">
+            All projects ↗
+          </TransitionLink>
         </div>
       </div>
     </section>
