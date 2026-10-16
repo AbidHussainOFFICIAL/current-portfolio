@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 
 import { CaseContent } from "@/components/case/case-content"
 import { CaseHero } from "@/components/case/case-hero"
-import { NextUp } from "@/components/ui/next-up"
+import { NextProject } from "@/components/case/next-project"
 import { allProjects, getNextProject, getProject } from "@/lib/content"
 
 type Params = { slug: string }
@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
     <main id="main">
       <CaseHero project={project} />
       <CaseContent project={project} />
-      <NextUp label="Next project" title={next.title} href={`/work/${next.slug}`} />
+      <NextProject project={next} />
     </main>
   )
 }

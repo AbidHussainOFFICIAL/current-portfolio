@@ -45,11 +45,6 @@
   --text-row--letter-spacing: -0.025em;
   --text-row--font-weight: 700;
 
-  --text-subrow: clamp(1.25rem, 2.2vw, 2rem);
-  --text-subrow--line-height: 1;
-  --text-subrow--letter-spacing: -0.02em;
-  --text-subrow--font-weight: 700;
-
   --text-numeral: clamp(3rem, 6vw, 5.5rem);
   --text-numeral--line-height: 1;
   --text-numeral--letter-spacing: -0.03em;
@@ -66,7 +61,6 @@
   --ease-in-out-expo: cubic-bezier(0.76, 0, 0.24, 1);
 
   --animate-marquee: marquee 45s linear infinite;
-  --animate-marquee-reverse: marquee-reverse 55s linear infinite;
   --animate-grain: grain 0.9s steps(4) infinite;
 
   @keyframes marquee {
@@ -75,15 +69,6 @@
     }
     to {
       transform: translateX(-50%);
-    }
-  }
-
-  @keyframes marquee-reverse {
-    from {
-      transform: translateX(-50%);
-    }
-    to {
-      transform: translateX(0);
     }
   }
 
@@ -160,10 +145,12 @@ html[data-preloaded] .preloader {
   display: none;
 }
 
-/* Thin scrollbar */
+/* Thin scrollbar. The gutter is always reserved, so locking the scroll (menu, preloader) never */
+/* makes the scrollbar appear or disappear, and the page never shifts sideways. */
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--color-faint) var(--color-ink);
+  scrollbar-gutter: stable;
 }
 
 /* Hide the native cursor only when the custom cursor is running */
@@ -366,12 +353,38 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+/* "hidden" (not "clip") keeps the reserved scrollbar gutter while Lenis is stopped. */
 .lenis.lenis-stopped {
-  overflow: clip;
+  overflow: hidden;
 }
 
 .lenis.lenis-smooth iframe {
   pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Highlighted code (shiki). The theme sets inline colours, the block sets the rest. */
+/* ------------------------------------------------------------------ */
+.code-block pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  background: transparent !important;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  tab-size: 2;
+}
+
+.code-block code {
+  font-family: inherit;
+}
+
+@media (width >= 48rem) {
+  .code-block pre {
+    padding: 2rem;
+    font-size: 0.875rem;
+  }
 }
 
 /* ------------------------------------------------------------------ */

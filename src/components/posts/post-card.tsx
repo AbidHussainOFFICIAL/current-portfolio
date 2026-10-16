@@ -14,7 +14,7 @@ export function PostCard({ post, sizes }: PostCardProps) {
     <TransitionLink href={`/posts/${post.slug}`} className="group block" data-cursor="Read">
       <div className="relative aspect-[4/3] overflow-hidden bg-surface">
         <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-110">
-          <CoverImage cover={post.cover} sizes={sizes} label={post.platform} />
+          <CoverImage cover={post.cover} sizes={sizes} />
         </div>
         <span className="tag absolute top-4 left-4 bg-ink/80 text-paper backdrop-blur-sm">{post.platform}</span>
       </div>

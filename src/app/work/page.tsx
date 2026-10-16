@@ -16,13 +16,10 @@ export default function WorkPage() {
   return (
     <main id="main" className="gutter container-page pt-32 pb-24 md:pt-40 md:pb-32">
       <header className="mb-14 flex items-end justify-between gap-6">
-        <div>
-          <p className="label mb-6 text-accent">( Index )</p>
-          <h1 className="font-display text-6xl font-extrabold tracking-tighter uppercase md:text-8xl">
-            All Projects
-          </h1>
-        </div>
-        <p className="label text-muted">( {pad2(allProjects.length)} projects )</p>
+        <h1 className="font-display text-6xl font-extrabold tracking-tighter uppercase md:text-8xl">
+          All Projects
+        </h1>
+        <p className="label pb-2 text-muted md:pb-3">{pad2(allProjects.length)} projects</p>
       </header>
 
       <ul className="grid gap-x-8 gap-y-16 md:grid-cols-2">

@@ -17,11 +17,8 @@ export default function PostsPage() {
   return (
     <main id="main" className="pt-32 pb-24 md:pt-40 md:pb-32">
       <header className="gutter container-page mb-14 flex items-end justify-between gap-6">
-        <div>
-          <p className="label mb-6 text-accent">( Index )</p>
-          <h1 className="font-display text-6xl font-extrabold tracking-tighter uppercase md:text-8xl">Posts</h1>
-        </div>
-        <p className="label text-muted">( {pad2(allPosts.length)} posts )</p>
+        <h1 className="font-display text-6xl font-extrabold tracking-tighter uppercase md:text-8xl">Posts</h1>
+        <p className="label pb-2 text-muted md:pb-3">{pad2(allPosts.length)} posts</p>
       </header>
 
       <ul className="border-t border-line">
@@ -35,7 +32,7 @@ export default function PostsPage() {
               >
                 <div className="relative aspect-[3/2] overflow-hidden bg-surface md:aspect-[4/3]">
                   <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
-                    <CoverImage cover={post.cover} sizes="(min-width: 768px) 220px, 100vw" label={post.platform} />
+                    <CoverImage cover={post.cover} sizes="(min-width: 768px) 220px, 100vw" />
                   </div>
                 </div>
 

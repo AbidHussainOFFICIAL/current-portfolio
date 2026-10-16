@@ -91,7 +91,7 @@ export function WorksList({ projects }: WorksListProps) {
 
               {/* Phones have no hover, so each row carries its own picture. */}
               <div className="relative col-span-3 mt-2 aspect-[3/2] w-full overflow-hidden bg-surface md:hidden">
-                <CoverImage cover={project.cover} sizes="100vw" label={project.title} />
+                <CoverImage cover={project.cover} sizes="100vw" />
               </div>
             </TransitionLink>
           </li>

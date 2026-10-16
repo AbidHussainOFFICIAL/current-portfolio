@@ -72,7 +72,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
         </header>
 
         <ClipReveal immediate delay={0.2} className="relative mt-14 aspect-[16/9] w-full overflow-hidden bg-surface">
-          <CoverImage cover={post.cover} sizes="100vw" priority label={post.platform} />
+          <CoverImage cover={post.cover} sizes="100vw" priority />
         </ClipReveal>
 
         <div className="gutter mx-auto max-w-3xl py-20 md:py-28">

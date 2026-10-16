@@ -4,11 +4,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useState } from "react"
 
+import { SectionHeading } from "@/components/ui/section-heading"
 import { testimonials } from "@/content/testimonials"
 import { pad2 } from "@/lib/format"
 import { DURATION, EASE_OUT } from "@/lib/motion"
 
-/** One large quote at a time. Renders nothing until real testimonials are added. */
+/** One large quote at a time, with the counter and the arrows on the heading line. */
 export function Testimonials() {
   const [index, setIndex] = useState(0)
 
@@ -21,17 +22,38 @@ export function Testimonials() {
   return (
     <section aria-label="Kind words" className="section-pad border-t border-line">
       <div className="gutter container-page">
-        <div className="mb-12 flex items-end justify-between gap-6 md:mb-14">
-          <div>
-            <p className="label mb-6 text-accent">( Kind words )</p>
-            <h2 className="font-display text-heading uppercase">Kind words</h2>
-          </div>
-          <p className="label text-muted">
-            <span className="text-paper">{pad2(index + 1)}</span> / {pad2(testimonials.length)}
-          </p>
-        </div>
+        <SectionHeading
+          title="Kind words"
+          meta={
+            <span className="flex items-center gap-5">
+              <span>
+                <span className="text-paper">{pad2(index + 1)}</span> / {pad2(testimonials.length)}
+              </span>
+              {testimonials.length > 1 ? (
+                <span className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => step(-1)}
+                    className="btn px-3 py-2"
+                    aria-label="Previous testimonial"
+                  >
+                    <ArrowLeft className="size-4" aria-hidden />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => step(1)}
+                    className="btn px-3 py-2"
+                    aria-label="Next testimonial"
+                  >
+                    <ArrowRight className="size-4" aria-hidden />
+                  </button>
+                </span>
+              ) : null}
+            </span>
+          }
+        />
 
-        <div className="relative grid gap-10 md:grid-cols-12">
+        <div className="grid gap-6 md:grid-cols-12 md:gap-10">
           <span
             aria-hidden
             className="pointer-events-none font-display text-[8rem] leading-[0.7] font-extrabold text-accent md:col-span-2 md:text-[14rem]"
@@ -39,7 +61,7 @@ export function Testimonials() {
             &ldquo;
           </span>
 
-          <div className="md:col-span-10">
+          <div className="min-h-[18rem] md:col-span-10 md:min-h-[22rem]">
             <AnimatePresence mode="wait">
               <motion.figure
                 key={index}
@@ -58,22 +80,6 @@ export function Testimonials() {
                 </figcaption>
               </motion.figure>
             </AnimatePresence>
-
-            {testimonials.length > 1 ? (
-              <div className="mt-12 flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => step(-1)}
-                  className="btn px-4"
-                  aria-label="Previous testimonial"
-                >
-                  <ArrowLeft className="size-4" aria-hidden />
-                </button>
-                <button type="button" onClick={() => step(1)} className="btn px-4" aria-label="Next testimonial">
-                  <ArrowRight className="size-4" aria-hidden />
-                </button>
-              </div>
-            ) : null}
           </div>
         </div>
       </div>

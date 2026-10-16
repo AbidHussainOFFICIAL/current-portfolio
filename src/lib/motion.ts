@@ -18,7 +18,6 @@ export const DURATION = {
 const LETTER_STAGGER = 0.06
 
 /** Spring options for useSpring */
-export const SPRING_CURSOR_OPTIONS = { stiffness: 500, damping: 40, mass: 0.6 }
 export const SPRING_SOFT_OPTIONS = { stiffness: 200, damping: 25, mass: 0.5 }
 
 /** Scroll reveal: play once, start slightly before the element is fully in view. */

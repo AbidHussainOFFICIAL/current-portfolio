@@ -2,12 +2,10 @@ import type { Cover, Post } from "@/types/content"
 
 // DUMMY: every post below is placeholder text. Replace each entry with a real social media post:
 // set `platform`, `url` (the link to the original post), the text in `body` and a real `date`.
-// Add a cover screenshot under /public/images/posts and set `cover.src` to use it.
+// Covers are generated art in /public/images/posts (post-1.jpg ... post-4.jpg). Replace a file with a real
+// screenshot of the post, keeping the same file name, or point `cover.src` at a new file.
 
-const cover = (alt: string, from: string, to: string): Cover => ({
-  alt,
-  gradient: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
-})
+const cover = (n: number): Cover => ({ src: `/images/posts/post-${n}.jpg`, alt: "Placeholder cover art" })
 
 export const posts: Post[] = [
   {
@@ -17,7 +15,7 @@ export const posts: Post[] = [
     excerpt: "Placeholder post. Designing the data model, the API and the interface together removes a lot of hand-offs.",
     date: "2026-09-28",
     url: "https://www.linkedin.com/",
-    cover: cover("Placeholder cover", "#12302a", "#0b0b0c"),
+    cover: cover(1),
     body: [
       "This is placeholder text for a social media post. Replace it with the real text of your post, paragraph by paragraph.",
       "Each string in the body list becomes one paragraph on the page, and the first letter of the first paragraph becomes the large drop cap.",
@@ -32,7 +30,7 @@ export const posts: Post[] = [
     excerpt: "Placeholder post. Notes on building a mobile-first store from catalog to checkout.",
     date: "2026-09-10",
     url: "https://www.linkedin.com/",
-    cover: cover("Placeholder cover", "#2a1f1a", "#0b0b0c"),
+    cover: cover(2),
     body: [
       "This is placeholder text for a social media post about shipping a project. Replace it with your real post.",
       "Write the post the way you published it, and split it into paragraphs so it reads well on the page.",
@@ -46,7 +44,7 @@ export const posts: Post[] = [
     excerpt: "Placeholder post. Lessons from working on real team projects in a live environment.",
     date: "2026-08-19",
     url: "https://www.linkedin.com/",
-    cover: cover("Placeholder cover", "#172033", "#0b0b0c"),
+    cover: cover(3),
     body: [
       "This is placeholder text for a social media post about learning on the job. Replace it with your real post.",
       "Keep the paragraphs short. Long walls of text are hard to read on a phone.",
@@ -60,7 +58,7 @@ export const posts: Post[] = [
     excerpt: "Placeholder post. How a clear data model made the rest of the build simpler.",
     date: "2026-07-02",
     url: "https://www.linkedin.com/",
-    cover: cover("Placeholder cover", "#2a1a33", "#0b0b0c"),
+    cover: cover(4),
     body: [
       "This is placeholder text for a social media post about backend design. Replace it with your real post.",
       "Posts are shown newest first, so the date decides the order on the home page and on the Posts page.",

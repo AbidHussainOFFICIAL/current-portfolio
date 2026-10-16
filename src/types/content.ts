@@ -1,9 +1,7 @@
 export interface Cover {
-  /** Path under /public, e.g. "/images/work/zivora.jpg". Leave out to show the gradient. */
-  src?: string
+  /** Path under /public, e.g. "/images/work/zivora-cover.jpg". Replace the file to swap the picture. */
+  src: string
   alt: string
-  /** CSS gradient used as the placeholder and as the fallback when src is missing. */
-  gradient: string
 }
 
 export interface Social {
@@ -63,9 +61,27 @@ export interface NavItem {
   href: string
 }
 
-export interface GalleryItem {
-  cover: Cover
-  caption: string
+/** A code excerpt shown with syntax highlighting on a project page. */
+export interface CodeSnippet {
+  /** Short heading, e.g. "Merging the class names". */
+  title: string
+  /** One or two sentences about what the code does and why. */
+  description: string
+  /** Name shown in the header of the code block. */
+  filename: string
+  /** shiki language id, e.g. "ts", "tsx", "js". */
+  language: string
+  /** Inline code. Use this OR `file`. */
+  code?: string
+  /** Path of a real file in this repository, read at build time, e.g. "src/lib/cn.ts". */
+  file?: string
+  /** True while the code is a placeholder. A "Placeholder" badge is shown on the page. */
+  dummy?: boolean
+}
+
+export interface Decision {
+  title: string
+  text: string
 }
 
 export interface Project {
@@ -82,11 +98,17 @@ export interface Project {
   cover: Cover
   /** One or two sentences, shown under the title. */
   intro: string
-  /** The overview paragraph on the project page. */
+  /** The brief: the overview paragraph on the project page. */
   summary: string
-  /** Short statements about what was built. */
-  highlights: string[]
-  gallery: GalleryItem[]
+  /** What the project does, one short line each. */
+  features: string[]
+  /** Technical choices and the reason for each. */
+  decisions: Decision[]
+  /** What building it taught me, one short line each. */
+  learned: string[]
+  snippets: CodeSnippet[]
+  /** Pictures shown on the project page. Three are expected. */
+  gallery: Cover[]
 }
 
 export interface Service {
@@ -125,6 +147,14 @@ export interface Post {
   body: string[]
   /** One line pulled out of the post and shown large. */
   quote: string
+}
+
+export interface Certificate {
+  year: string
+  title: string
+  issuer: string
+  /** Short type shown in the middle column, e.g. "Certificate" or "Course". */
+  type: string
 }
 
 export interface Testimonial {

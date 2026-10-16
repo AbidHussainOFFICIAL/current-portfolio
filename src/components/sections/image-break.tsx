@@ -30,7 +30,7 @@ export function ImageBreak() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          ( {site.quote.label} )
+          {site.quote.label}
         </motion.p>
 
         <motion.blockquote

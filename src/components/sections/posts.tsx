@@ -1,5 +1,6 @@
 import { PostCard } from "@/components/posts/post-card"
 import { Reveal } from "@/components/ui/reveal"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { TransitionLink } from "@/components/ui/transition-link"
 import { latestPosts } from "@/lib/content"
 
@@ -10,15 +11,14 @@ export function Posts() {
   return (
     <section id="posts" className="section-pad border-t border-line">
       <div className="gutter container-page">
-        <div className="mb-14 flex items-end justify-between gap-6">
-          <h2 className="font-display text-heading uppercase">Posts</h2>
-          <TransitionLink
-            href="/posts"
-            className="label link-sweep hidden pb-1 text-muted hover:text-paper md:block"
-          >
-            All posts ↗
-          </TransitionLink>
-        </div>
+        <SectionHeading
+          title="Posts"
+          meta={
+            <TransitionLink href="/posts" className="link-sweep pb-1 hover:text-paper">
+              All posts ↗
+            </TransitionLink>
+          }
+        />
 
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
           {posts.map((post, index) => (
@@ -29,12 +29,6 @@ export function Posts() {
             </li>
           ))}
         </ul>
-
-        <div className="mt-10 md:hidden">
-          <TransitionLink href="/posts" className="label link-sweep pb-1 text-muted">
-            All posts ↗
-          </TransitionLink>
-        </div>
       </div>
     </section>
   )

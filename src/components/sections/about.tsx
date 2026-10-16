@@ -8,6 +8,7 @@ import { ClipReveal } from "@/components/ui/clip-reveal"
 import { CountUp } from "@/components/ui/count-up"
 import { CoverImage } from "@/components/ui/cover-image"
 import { Reveal } from "@/components/ui/reveal"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { site } from "@/content/site"
 
 function Word({
@@ -34,7 +35,7 @@ export function About() {
   return (
     <section id="about" className="border-t border-line">
       <div className="gutter container-page section-pad">
-        <p className="label mb-10 text-accent">( About )</p>
+        <SectionHeading large title="About" meta={`${site.city}, ${site.country}`} />
 
         <p ref={statementRef} className="flex max-w-6xl flex-wrap gap-x-[0.28em] font-display text-statement">
           <span className="sr-only">{site.about.statement}</span>
@@ -50,7 +51,7 @@ export function About() {
         <div className="mt-16 grid gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-5">
             <ClipReveal className="relative aspect-[4/5] overflow-hidden bg-surface">
-              <CoverImage cover={site.portrait} sizes="(min-width: 768px) 40vw, 100vw" label={site.name} />
+              <CoverImage cover={site.portrait} sizes="(min-width: 768px) 40vw, 100vw" />
             </ClipReveal>
           </div>
 

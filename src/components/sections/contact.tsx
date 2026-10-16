@@ -11,8 +11,6 @@ export function Contact() {
   return (
     <footer id="contact" className="flex min-h-svh flex-col border-t border-line pt-8 md:pt-10">
       <div className="gutter container-page flex flex-1 flex-col">
-        <p className="label text-accent">( Got a project? )</p>
-
         <div className="flex flex-1 flex-col justify-center gap-10 py-10 md:flex-row md:items-center md:justify-between">
           {/* Hovering swaps the colours of the two lines, as on Kern. */}
           <a href={`mailto:${site.email}`} data-cursor="" className="group block select-none">

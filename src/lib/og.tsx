@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og"
 
 import { site } from "@/content/site"
+import { LOGO_FRAME, LOGO_LETTERS } from "@/lib/logo"
 
 interface OgOptions {
   eyebrow: string
@@ -23,8 +24,11 @@ export function renderOg({ eyebrow, title }: OgOptions) {
           padding: 72,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 28, color: "#9A9994" }}>
-          <div style={{ width: 16, height: 16, borderRadius: 16, background: "#5CF2C4" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 28, color: "#9A9994" }}>
+          <svg width="56" height="56" viewBox="0 0 64 64">
+            <path fill="#5CF2C4" d={LOGO_FRAME} />
+            <path fill="#0B0B0C" fillRule="evenodd" d={LOGO_LETTERS} />
+          </svg>
           {eyebrow}
         </div>
 

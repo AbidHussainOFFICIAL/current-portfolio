@@ -7,7 +7,7 @@ export function Experience() {
   return (
     <section id="experience" className="section-pad border-t border-line">
       <div className="gutter container-page">
-        <SectionHeading title="Experience" label="2023 — 2026" />
+        <SectionHeading title="Experience" meta="2023 — 2026" />
       </div>
 
       <ul className="border-t border-line">

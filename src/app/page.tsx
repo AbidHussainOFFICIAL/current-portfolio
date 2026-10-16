@@ -1,4 +1,5 @@
 import { About } from "@/components/sections/about"
+import { Certificates } from "@/components/sections/certificates"
 import { Experience } from "@/components/sections/experience"
 import { Hero } from "@/components/sections/hero"
 import { ImageBreak } from "@/components/sections/image-break"
@@ -19,6 +20,7 @@ export default function HomePage() {
       <ImageBreak />
       <Services />
       <Experience />
+      <Certificates />
       <Skills />
       <Testimonials />
       <Posts />

@@ -7,7 +7,14 @@ import { useState } from "react"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { services } from "@/content/services"
 import { cn } from "@/lib/cn"
+import { pad2 } from "@/lib/format"
 import { DURATION, EASE_OUT } from "@/lib/motion"
+
+/** The title shrinks and the panel opens on one clock, so the two always move together. */
+const PANEL = { duration: DURATION.base, ease: EASE_OUT }
+
+/** Size of an open title compared with a closed one. */
+const OPEN_SCALE = 0.62
 
 export function Services() {
   // Only one panel is open at a time. The first one starts open.
@@ -16,7 +23,7 @@ export function Services() {
   return (
     <section id="services" className="section-pad border-t border-line">
       <div className="gutter container-page">
-        <SectionHeading title="Services" label="What I do" />
+        <SectionHeading title="Services" meta={`${pad2(services.length)} services`} />
       </div>
 
       <ul className="border-t border-line">
@@ -42,16 +49,19 @@ export function Services() {
                     >
                       {service.index}
                     </span>
-                    {/* The title shrinks smoothly when its panel opens and grows back on close. */}
-                    <span
-                      className={cn(
-                        "font-display uppercase transition-[font-size,color,transform] duration-700 ease-out-expo",
-                        open
-                          ? "translate-x-1 text-subrow text-accent md:translate-x-3"
-                          : "text-row group-hover:translate-x-1 group-hover:text-accent md:group-hover:translate-x-3",
-                      )}
-                    >
-                      {service.name}
+                    {/* Outer span: hover nudge (CSS). Inner span: open and close scale (motion, transform only). */}
+                    <span className="inline-block transition-transform duration-500 ease-out-expo group-hover:translate-x-1 md:group-hover:translate-x-3">
+                      <motion.span
+                        className={cn(
+                          "inline-block origin-left font-display text-row uppercase transition-colors duration-500",
+                          open ? "text-accent" : "group-hover:text-accent",
+                        )}
+                        initial={false}
+                        animate={{ scale: open ? OPEN_SCALE : 1 }}
+                        transition={PANEL}
+                      >
+                        {service.name}
+                      </motion.span>
                     </span>
                   </span>
                   <span
@@ -78,22 +88,23 @@ export function Services() {
                     initial={{ height: 0 }}
                     animate={{ height: "auto" }}
                     exit={{ height: 0 }}
-                    transition={{ duration: DURATION.base, ease: EASE_OUT }}
+                    transition={PANEL}
                   >
                     <div className="gutter container-page grid gap-8 pb-10 pl-[3.25rem] md:grid-cols-12 md:pb-14 md:pl-[7.5rem]">
+                      {/* The text arrives after the panel has started to open. */}
                       <motion.p
                         className="max-w-xl text-lead text-muted md:col-span-7"
                         initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: DURATION.base, ease: EASE_OUT, delay: 0.1 }}
+                        animate={{ opacity: 1, y: 0, transition: { ...PANEL, delay: 0.2 } }}
+                        exit={{ opacity: 0, transition: { duration: 0.15 } }}
                       >
                         {service.description}
                       </motion.p>
                       <motion.ul
                         className="flex flex-wrap content-start gap-2 md:col-span-5"
                         initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: DURATION.base, ease: EASE_OUT, delay: 0.2 }}
+                        animate={{ opacity: 1, y: 0, transition: { ...PANEL, delay: 0.3 } }}
+                        exit={{ opacity: 0, transition: { duration: 0.15 } }}
                       >
                         {service.tags.map((tag) => (
                           <li key={tag} className="tag">

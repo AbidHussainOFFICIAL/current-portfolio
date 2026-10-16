@@ -1,22 +1,16 @@
 import { Reveal } from "@/components/ui/reveal"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { skills } from "@/content/skills"
 import { pad2 } from "@/lib/format"
+
+const toolCount = skills.reduce((total, group) => total + group.items.length, 0)
 
 /** Awards-ledger layout (Noir and Kern) used for the skills and stack. */
 export function Skills() {
   return (
     <section id="skills" className="section-pad border-t border-line">
-      <div className="gutter container-page mb-12 grid gap-8 md:mb-14 md:grid-cols-[1fr_2fr] md:gap-20">
-        <div>
-          <p className="label mb-6 text-accent">( Toolkit )</p>
-          <h2 className="font-display text-heading uppercase">
-            Skills
-            <br />&amp; Stack
-          </h2>
-        </div>
-        <p className="max-w-md self-end text-muted md:justify-self-end">
-          The tools I reach for to take a product from the first data model to a deployed, responsive interface.
-        </p>
+      <div className="gutter container-page">
+        <SectionHeading title="Skills" meta={`${toolCount} tools`} />
       </div>
 
       <ul className="border-t border-line">

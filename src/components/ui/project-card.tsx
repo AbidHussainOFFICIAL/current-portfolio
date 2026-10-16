@@ -14,9 +14,9 @@ interface ProjectCardProps {
 export function ProjectCard({ project, sizes, priority }: ProjectCardProps) {
   return (
     <TransitionLink href={`/work/${project.slug}`} className="group block" data-cursor="View">
-      <div className="relative aspect-[3/2] overflow-hidden bg-surface">
+      <div className="relative aspect-[16/10] overflow-hidden bg-surface">
         <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
-          <CoverImage cover={project.cover} sizes={sizes} priority={priority} label={project.title} />
+          <CoverImage cover={project.cover} sizes={sizes} priority={priority} />
         </div>
         <span className="tag absolute top-4 left-4 bg-ink/80 text-paper backdrop-blur-sm">{project.category}</span>
       </div>

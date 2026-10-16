@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { useCallback, useState } from "react"
 
 import { Menu } from "@/components/layout/menu"
+import { Logo } from "@/components/ui/logo"
 import { TransitionLink } from "@/components/ui/transition-link"
 import { navItems } from "@/content/nav"
 import { site } from "@/content/site"
@@ -52,8 +53,9 @@ export function Header() {
             href="/"
             data-cursor=""
             onNavigate={closeMenu}
-            className="font-display text-xl font-semibold tracking-tight"
+            className="flex items-center gap-3 font-display text-xl font-semibold tracking-tight"
           >
+            <Logo />
             {site.name}
           </TransitionLink>
 

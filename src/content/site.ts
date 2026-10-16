@@ -13,15 +13,14 @@ export const site: SiteConfig = {
     "Portfolio of Abid Hussain, a creative full-stack developer in Karachi building fast, considered websites and web apps with the MERN stack and TypeScript.",
   intro:
     "I build fast, considered websites and web apps with the MERN stack and TypeScript, owning every feature from the data model to the last pixel.",
-  // DUMMY: portrait placeholder. Add a photo under /public/images and set src to use it.
+  // DUMMY: generated art. Replace the file /public/images/portrait.jpg with a real photo (4:5 works best).
   portrait: {
-    alt: "Portrait of Abid Hussain (placeholder)",
-    gradient: "linear-gradient(160deg, #1d3a35 0%, #131315 60%, #0b0b0c 100%)",
+    src: "/images/portrait.jpg",
+    alt: "Portrait of Abid Hussain (placeholder art)",
   },
   socials: [
     { label: "LinkedIn", url: "https://linkedin.com/in/abidhussainsoftware" },
-    // DUMMY: replace with the real GitHub profile URL.
-    { label: "GitHub", url: "https://github.com/" },
+    { label: "GitHub", url: "https://github.com/AbidHussainOFFICIAL" },
   ],
   stats: [
     { value: 3, label: "Apps in production" },

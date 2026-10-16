@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowDown, Download } from "lucide-react"
+import { ArrowDown, ArrowRight, Download } from "lucide-react"
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
 
@@ -42,29 +42,51 @@ export function Hero() {
 
       <motion.div style={{ y, opacity }} className="container-page relative flex w-full flex-1 flex-col justify-between">
         <motion.div className="flex items-start justify-between gap-6" {...fade(0)}>
-          <p className="label text-accent">( {site.role} )</p>
-          <p className="label hidden text-muted sm:block">
-            {site.city}, {site.country} · <LiveClock timeZone={site.timezone} label="KHI" />
+          <p className="label text-accent">{site.role}</p>
+          <p className="label text-muted">
+            <LiveClock timeZone={site.timezone} label="KHI" />
           </p>
         </motion.div>
 
-        <motion.h1
-          aria-label={site.name}
-          className="font-display text-[length:min(17vw,24svh)] leading-[0.82] font-extrabold tracking-[-0.04em] uppercase select-none"
-          variants={staggerLetters}
-          initial="hidden"
-          animate={ready ? "show" : "hidden"}
-        >
-          {words.map((word) => (
-            <span key={word} aria-hidden className="-mb-[0.04em] block overflow-hidden pb-[0.06em]">
-              {word.split("").map((letter, index) => (
-                <motion.span key={index} className="inline-block" variants={maskUp}>
-                  {letter}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </motion.h1>
+        {/* The name is a link to Contact. Hovering swaps the two colours and slides an arrow in, as in the footer. */}
+        <TransitionLink href="/#contact" data-cursor="Contact" className="group block select-none">
+          <motion.h1
+            aria-label={site.name}
+            className="font-display text-[length:min(19.5vw,30svh)] leading-[0.82] font-extrabold tracking-[-0.045em] uppercase"
+            variants={staggerLetters}
+            initial="hidden"
+            animate={ready ? "show" : "hidden"}
+          >
+            {words.map((word, wordIndex) => (
+              <span
+                key={word}
+                aria-hidden
+                className={`-mb-[0.04em] flex items-center gap-[0.12em] overflow-hidden pb-[0.06em] transition-colors duration-500 ${
+                  wordIndex === 0
+                    ? "text-paper group-hover:text-accent"
+                    : "text-accent group-hover:text-paper"
+                }`}
+              >
+                <span className="flex">
+                  {word.split("").map((letter, index) => (
+                    <motion.span key={index} className="inline-block" variants={maskUp}>
+                      {letter}
+                    </motion.span>
+                  ))}
+                </span>
+                {wordIndex === 0 ? (
+                  <span className="inline-block overflow-hidden">
+                    <ArrowRight
+                      className="size-[0.62em] -translate-x-full opacity-0 transition-[transform,opacity] duration-500 ease-out-expo group-hover:translate-x-0 group-hover:opacity-100"
+                      strokeWidth={2.5}
+                      aria-hidden
+                    />
+                  </span>
+                ) : null}
+              </span>
+            ))}
+          </motion.h1>
+        </TransitionLink>
 
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
           <motion.p className="max-w-md text-muted md:col-span-6 md:text-lg" {...fade(0.7)}>
