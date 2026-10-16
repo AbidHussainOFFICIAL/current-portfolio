@@ -15,7 +15,7 @@ export function ImageBreak() {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1.15])
 
   return (
-    <section ref={ref} aria-label={site.quote.label} className="relative h-[80svh] overflow-hidden border-t border-line md:h-svh">
+    <section ref={ref} aria-label={site.quote.label} className="relative h-[80svh] overflow-hidden md:h-svh">
       <motion.div style={{ y, scale }} className="absolute inset-x-0 -top-[15%] h-[130%]">
         {/* DUMMY image: replace /public/images/parallax.jpg with your own picture. */}
         <Image src="/images/parallax.jpg" alt="" fill sizes="100vw" className="object-cover" />

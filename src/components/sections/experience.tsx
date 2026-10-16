@@ -5,7 +5,7 @@ import { experience } from "@/content/experience"
 /** Rows fill with paper from the bottom on hover (Kern Services style). */
 export function Experience() {
   return (
-    <section id="experience" className="section-pad border-t border-line">
+    <section id="experience" className="section-pad">
       <div className="gutter container-page">
         <SectionHeading title="Experience" meta="2023 — 2026" />
       </div>

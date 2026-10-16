@@ -7,6 +7,9 @@ import { Reveal } from "@/components/ui/reveal"
 import { pad2 } from "@/lib/format"
 import type { Project } from "@/types/content"
 
+/** The wide frame sits inside the page gutter, so the picture is a little narrower than the screen. */
+const FRAME_SIZES = "(min-width: 1280px) calc(100vw - 8rem), (min-width: 768px) calc(100vw - 5rem), calc(100vw - 3rem)"
+
 interface CaseSectionProps {
   title: string
   /** Small text on the right of the title line. */
@@ -17,7 +20,7 @@ interface CaseSectionProps {
 /** A full-width block with its line edge to edge: one title on the left, a small meta on the right. */
 function CaseSection({ title, meta, children }: CaseSectionProps) {
   return (
-    <section aria-label={title} className="section-pad border-t border-line">
+    <section aria-label={title} className="section-pad">
       <div className="gutter container-page">
         <header className="mb-10 flex items-end justify-between gap-6 md:mb-14">
           <h2 className="font-display text-[length:clamp(2.25rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-tight uppercase">
@@ -114,7 +117,7 @@ export function CaseContent({ project }: { project: Project }) {
         </div>
       </CaseSection>
 
-      <section aria-label="Features" className="section-pad border-t border-line">
+      <section aria-label="Features" className="section-pad">
         <div className="gutter container-page">
           <header className="mb-10 flex items-end justify-between gap-6 md:mb-14">
             <h2 className="font-display text-[length:clamp(2.25rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-tight uppercase">
@@ -132,9 +135,9 @@ export function CaseContent({ project }: { project: Project }) {
         />
       </section>
 
-      <div className="gutter container-page grid gap-6 border-t border-line pt-[clamp(72px,9vw,144px)] md:grid-cols-2 md:gap-8">
+      <div className="gutter container-page grid gap-6 md:grid-cols-2 md:gap-8">
         <ClipReveal className="md:col-span-2">
-          <ParallaxFrame cover={wide} sizes="100vw" className="aspect-[4/3] md:aspect-[21/9]" />
+          <ParallaxFrame cover={wide} sizes={FRAME_SIZES} className="aspect-[4/3] md:aspect-[21/9]" />
         </ClipReveal>
         {rest.map((cover, index) => (
           <ClipReveal key={cover.src} delay={index * 0.1}>
@@ -180,7 +183,7 @@ export function CaseContent({ project }: { project: Project }) {
         </CaseSection>
       ) : null}
 
-      <section aria-label="What I learned" className="section-pad border-t border-line">
+      <section aria-label="What I learned" className="section-pad">
         <div className="gutter container-page">
           <header className="mb-10 flex items-end justify-between gap-6 md:mb-14">
             <h2 className="font-display text-[length:clamp(2.25rem,5vw,4.5rem)] leading-[0.95] font-extrabold tracking-tight uppercase">

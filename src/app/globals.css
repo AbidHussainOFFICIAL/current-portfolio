@@ -153,6 +153,17 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* While the mint menu is open (Menu sets data-menu-open) the scrollbar gutter turns mint too. */
+/* The attribute is removed as soon as the menu starts to close, so both directions fade over the wipe. */
+html {
+  transition: background-color 0.7s var(--ease-in-out-expo);
+}
+
+html[data-menu-open] {
+  background: var(--color-accent);
+  scrollbar-color: var(--color-ink) var(--color-accent);
+}
+
 /* Hide the native cursor only when the custom cursor is running */
 html.cursor-active,
 html.cursor-active * {

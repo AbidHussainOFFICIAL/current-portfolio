@@ -9,10 +9,12 @@ type TransitionLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
   href: string
   /** Called when the click is handled as an in-site navigation (e.g. to close the menu). */
   onNavigate?: () => void
+  /** Jump straight to a same-page section instead of scrolling there. */
+  instant?: boolean
 }
 
 /** Internal link that plays the page curtain and handles same-page hash scrolling. */
-export function TransitionLink({ href, onClick, onNavigate, children, ...rest }: TransitionLinkProps) {
+export function TransitionLink({ href, onClick, onNavigate, instant, children, ...rest }: TransitionLinkProps) {
   const { navigate } = usePageTransition()
 
   return (
@@ -25,7 +27,7 @@ export function TransitionLink({ href, onClick, onNavigate, children, ...rest }:
         if (rest.target === "_blank") return
         event.preventDefault()
         onNavigate?.()
-        navigate(href)
+        navigate(href, { instant })
       }}
       {...rest}
     >

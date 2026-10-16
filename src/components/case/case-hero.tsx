@@ -6,6 +6,9 @@ import { MaskLine } from "@/components/ui/mask-line"
 import { TransitionLink } from "@/components/ui/transition-link"
 import type { Project } from "@/types/content"
 
+/** The frame sits inside the page gutter, so the picture is a little narrower than the screen. */
+const FRAME_SIZES = "(min-width: 1280px) calc(100vw - 8rem), (min-width: 768px) calc(100vw - 5rem), calc(100vw - 3rem)"
+
 export function CaseHero({ project }: { project: Project }) {
   return (
     <header className="gutter container-page pt-32 md:pt-40">
@@ -55,7 +58,7 @@ export function CaseHero({ project }: { project: Project }) {
       </div>
 
       <ClipReveal immediate delay={0.2} className="mt-12 md:mt-16">
-        <ParallaxFrame cover={project.cover} sizes="100vw" priority className="aspect-[4/3] md:aspect-[21/9]" />
+        <ParallaxFrame cover={project.cover} sizes={FRAME_SIZES} priority className="aspect-[4/3] md:aspect-[21/9]" />
       </ClipReveal>
     </header>
   )

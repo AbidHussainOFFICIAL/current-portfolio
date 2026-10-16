@@ -9,7 +9,7 @@ export function Posts() {
   const posts = latestPosts(3)
 
   return (
-    <section id="posts" className="section-pad border-t border-line">
+    <section id="posts" className="section-pad">
       <div className="gutter container-page">
         <SectionHeading
           title="Posts"

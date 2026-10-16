@@ -33,7 +33,7 @@ export function About() {
   const words = site.about.statement.split(" ")
 
   return (
-    <section id="about" className="border-t border-line">
+    <section id="about">
       <div className="gutter container-page section-pad">
         <SectionHeading large title="About" meta={`${site.city}, ${site.country}`} />
 
@@ -86,7 +86,7 @@ export function About() {
       </div>
 
       {/* The line sits outside the page gutter so it runs edge to edge. */}
-      <div className="border-t border-line">
+      <div>
         <dl className="gutter container-page grid grid-cols-2 gap-x-6 gap-y-12 py-12 text-center md:grid-cols-4 md:py-16">
           {site.stats.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">

@@ -21,7 +21,7 @@ export function Services() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="services" className="section-pad border-t border-line">
+    <section id="services" className="section-pad">
       <div className="gutter container-page">
         <SectionHeading title="Services" meta={`${pad2(services.length)} services`} />
       </div>

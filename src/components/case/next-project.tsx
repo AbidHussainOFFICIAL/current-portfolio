@@ -8,11 +8,16 @@ export function NextProject({ project }: { project: Project }) {
     <TransitionLink
       href={`/work/${project.slug}`}
       data-cursor="Next"
-      className="group relative block h-[85svh] min-h-[28rem] overflow-hidden border-t border-line bg-ink"
+      className="group relative block h-svh min-h-[28rem] overflow-hidden bg-ink"
     >
-      <div className="absolute inset-0 brightness-[0.4] transition-[transform,filter] duration-1000 ease-out-expo group-hover:scale-105 group-hover:brightness-[0.65]">
+      {/* Only transform and opacity animate, so the zoom and the brightening stay smooth. */}
+      <div className="absolute inset-0 scale-100 transition-transform duration-[1400ms] ease-[cubic-bezier(0.33,1,0.68,1)] will-change-transform group-hover:scale-[1.06]">
         <CoverImage cover={project.cover} sizes="100vw" />
       </div>
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-ink opacity-60 transition-opacity duration-[1400ms] ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-35"
+      />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
         <span className="label text-paper/70">Next project</span>

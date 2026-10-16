@@ -10,3 +10,6 @@ export const LOGO_LETTERS =
 /** Rounded square behind the letters. */
 export const LOGO_FRAME =
   "M14 0h36a14 14 0 0 1 14 14v36a14 14 0 0 1-14 14H14A14 14 0 0 1 0 50V14A14 14 0 0 1 14 0Z"
+
+/** The full app mark: mint gradient square, ink letters. Used where a static SVG file is not possible. */
+export const LOGO_MARK_GRADIENT = ["#8CFFE0", "#1FB88F"] as const

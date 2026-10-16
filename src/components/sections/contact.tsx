@@ -9,7 +9,7 @@ import { site } from "@/content/site"
 /** Closing section. It is also the footer, so it is rendered once in the root layout and fits one screen. */
 export function Contact() {
   return (
-    <footer id="contact" className="flex min-h-svh flex-col border-t border-line pt-8 md:pt-10">
+    <footer id="contact" className="flex min-h-svh flex-col pt-8 md:pt-10">
       <div className="gutter container-page flex flex-1 flex-col">
         <div className="flex flex-1 flex-col justify-center gap-10 py-10 md:flex-row md:items-center md:justify-between">
           {/* Hovering swaps the colours of the two lines, as on Kern. */}

@@ -20,7 +20,7 @@ export function Testimonials() {
     setIndex((current) => (current + direction + testimonials.length) % testimonials.length)
 
   return (
-    <section aria-label="Kind words" className="section-pad border-t border-line">
+    <section aria-label="Kind words" className="section-pad">
       <div className="gutter container-page">
         <SectionHeading
           title="Kind words"

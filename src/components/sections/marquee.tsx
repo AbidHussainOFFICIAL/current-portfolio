@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn"
 /** One endless strip of technologies. The list is rendered twice so the loop is seamless at -50%. */
 export function Marquee() {
   return (
-    <section aria-label="Technologies I work with" className="overflow-hidden border-y border-line py-6 md:py-10">
+    <section aria-label="Technologies I work with" className="overflow-hidden py-6 md:py-10">
       <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
         {[0, 1].map((copy) => (
           <ul key={copy} aria-hidden={copy === 1 || undefined} className="flex shrink-0 items-center">

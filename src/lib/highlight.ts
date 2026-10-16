@@ -5,10 +5,10 @@ import { codeToHtml } from "shiki"
 
 import type { CodeSnippet } from "@/types/content"
 
-/** The code to show: the inline text, or a real file from this repository read at build time. */
+/** The code to show (the ignore comment tells Turbopack the path is a known repository file, not a reason to trace the whole project): the inline text, or a real file from this repository read at build time. */
 async function readSource(snippet: CodeSnippet): Promise<string> {
   if (snippet.code !== undefined) return snippet.code
-  if (snippet.file) return readFile(path.join(process.cwd(), snippet.file), "utf8")
+  if (snippet.file) return readFile(path.join(/*turbopackIgnore: true*/ process.cwd(), snippet.file), "utf8")
   throw new Error(`Snippet "${snippet.title}" needs either "code" or "file".`)
 }
 

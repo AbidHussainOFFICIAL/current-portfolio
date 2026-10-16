@@ -24,6 +24,13 @@ interface MenuProps {
 export function Menu({ open, current, onClose }: MenuProps) {
   const lenis = useLenis()
 
+  // Tint the page scrollbar gutter with the menu. Removed the moment the menu starts closing.
+  useEffect(() => {
+    const root = document.documentElement
+    root.toggleAttribute("data-menu-open", open)
+    return () => root.removeAttribute("data-menu-open")
+  }, [open])
+
   // Stop page scroll and close on Escape while the menu is open.
   useEffect(() => {
     if (!open) return
@@ -74,6 +81,7 @@ export function Menu({ open, current, onClose }: MenuProps) {
                       href={item.href}
                       data-cursor=""
                       onNavigate={onClose}
+                      instant
                       aria-current={current === item.id ? "true" : undefined}
                       className="group flex h-full flex-col justify-between px-5 py-4 md:px-10 md:py-6 xl:px-16"
                     >

@@ -1,4 +1,2 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#5CF2C4"/>
-  <path fill="#0B0B0C" fill-rule="evenodd" d="M6 52 15.5 12h7L32 52h-7l-1.8-8H14.8L13 52ZM19 26.7 21.7 38h-5.4ZM38 12h7v16.5h6V12h7v40h-7V35.5h-6V52h-7Z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8CFFE0"/><stop offset="1" stop-color="#1FB88F"/></linearGradient></defs>
+<path d="M14 0h36a14 14 0 0 1 14 14v36a14 14 0 0 1-14 14H14A14 14 0 0 1 0 50V14A14 14 0 0 1 14 0Z" fill="url(#g)"/><path fill="#0B0B0C" fill-rule="evenodd" d="M6 52 15.5 12h7L32 52h-7l-1.8-8H14.8L13 52ZM19 26.7 21.7 38h-5.4ZM38 12h7v16.5h6V12h7v40h-7V35.5h-6V52h-7Z" transform="translate(0 2)"/></svg>

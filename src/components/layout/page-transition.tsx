@@ -10,7 +10,8 @@ import { DURATION, EASE_IN_OUT } from "@/lib/motion"
 type Phase = "idle" | "covering" | "revealing"
 
 interface PageTransitionContextValue {
-  navigate: (href: string) => void
+  /** `instant` jumps to a section on the same page without a long scroll (used while the menu covers the page). */
+  navigate: (href: string, options?: { instant?: boolean }) => void
 }
 
 const PageTransitionContext = createContext<PageTransitionContextValue | null>(null)
@@ -51,7 +52,8 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   }, [phase])
 
   const navigate = useCallback(
-    (href: string) => {
+    (href: string, options?: { instant?: boolean }) => {
+      const immediate = reduced === true || options?.instant === true
       const hashIndex = href.indexOf("#")
       const hash = hashIndex >= 0 ? href.slice(hashIndex) : ""
       const path = href.replace(/[#?].*$/, "") || pathname
@@ -61,12 +63,12 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         if (hash.length > 1) {
           const element = document.getElementById(hash.slice(1))
           if (element) {
-            if (lenis) lenis.scrollTo(element, { offset: 0, immediate: reduced === true, force: true })
+            if (lenis) lenis.scrollTo(element, { offset: 0, immediate, force: true })
             else element.scrollIntoView({ behavior: reduced ? "auto" : "smooth" })
             history.pushState(null, "", href)
           }
         } else if (lenis) {
-          lenis.scrollTo(0, { immediate: reduced === true, force: true })
+          lenis.scrollTo(0, { immediate, force: true })
         } else {
           window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" })
         }

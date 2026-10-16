@@ -8,6 +8,7 @@ import { Grain } from "@/components/layout/grain"
 import { Header } from "@/components/layout/header"
 import { Preloader } from "@/components/layout/preloader"
 import { Providers } from "@/components/layout/providers"
+import { SiteFooter } from "@/components/layout/site-footer"
 import { Contact } from "@/components/sections/contact"
 import { site } from "@/content/site"
 import { cn } from "@/lib/cn"
@@ -88,7 +89,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Cursor />
           <Header />
           {children}
-          <Contact />
+          <SiteFooter>
+            <Contact />
+          </SiteFooter>
         </Providers>
         <Analytics />
         <SpeedInsights />

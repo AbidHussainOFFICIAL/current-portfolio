@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 import { site } from "@/content/site"
-import { LOGO_FRAME, LOGO_LETTERS } from "@/lib/logo"
+import { LOGO_FRAME, LOGO_LETTERS, LOGO_MARK_GRADIENT } from "@/lib/logo"
 
 interface OgOptions {
   eyebrow: string
@@ -26,8 +26,14 @@ export function renderOg({ eyebrow, title }: OgOptions) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 28, color: "#9A9994" }}>
           <svg width="56" height="56" viewBox="0 0 64 64">
-            <path fill="#5CF2C4" d={LOGO_FRAME} />
-            <path fill="#0B0B0C" fillRule="evenodd" d={LOGO_LETTERS} />
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor={LOGO_MARK_GRADIENT[0]} />
+                <stop offset="1" stopColor={LOGO_MARK_GRADIENT[1]} />
+              </linearGradient>
+            </defs>
+            <path fill="url(#g)" d={LOGO_FRAME} />
+            <path fill="#0B0B0C" fillRule="evenodd" d={LOGO_LETTERS} transform="translate(0 2)" />
           </svg>
           {eyebrow}
         </div>
