@@ -13,14 +13,16 @@ interface MaskLineProps {
   immediate?: boolean
 }
 
-/** Slides a line of text up out of a clipped box. */
+/** Slides a line of text up out of a clipped box. Urdu gets extra room above and below for the tall letters. */
 export function MaskLine({ children, className, delay = 0, immediate = false }: MaskLineProps) {
   const trigger = immediate
     ? { animate: { y: "0%" } }
     : { whileInView: { y: "0%" }, viewport: VIEWPORT_ONCE }
 
   return (
-    <span className={cn("-mb-[0.12em] block overflow-hidden pb-[0.12em]", className)}>
+    <span
+      className={cn("-mb-[0.12em] block overflow-hidden pb-[0.12em] ur:-my-[0.3em] ur:py-[0.3em]", className)}
+    >
       <motion.span
         className="block"
         initial={{ y: "110%" }}

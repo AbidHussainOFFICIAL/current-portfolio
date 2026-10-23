@@ -9,7 +9,8 @@ import { CountUp } from "@/components/ui/count-up"
 import { CoverImage } from "@/components/ui/cover-image"
 import { Reveal } from "@/components/ui/reveal"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { site } from "@/content/site"
+import { useDictionary, useLocale, useSite } from "@/i18n/locale-provider"
+import { fmt } from "@/lib/format"
 
 function Word({
   children,
@@ -25,19 +26,27 @@ function Word({
 }
 
 export function About() {
+  const site = useSite()
+  const dict = useDictionary()
+  const locale = useLocale()
   const statementRef = useRef<HTMLParagraphElement>(null)
   const { scrollYProgress } = useScroll({
     target: statementRef,
     offset: ["start 0.85", "end 0.45"],
   })
+  // Words, never letters: Urdu letters are joined and must not be split.
   const words = site.about.statement.split(" ")
 
   return (
     <section id="about">
       <div className="gutter container-page section-pad">
-        <SectionHeading large title="About" meta={`${site.city}, ${site.country}`} />
+        <SectionHeading
+          large
+          title={dict.about.title}
+          meta={fmt(dict.about.placeOfWork, { city: site.city, country: site.country }, locale)}
+        />
 
-        <p ref={statementRef} className="flex max-w-6xl flex-wrap gap-x-[0.28em] font-display text-statement">
+        <p ref={statementRef} className="flex max-w-xl flex-wrap gap-x-[0.28em] font-display text-statement">
           <span className="sr-only">{site.about.statement}</span>
           {words.map((word, index) => (
             <span key={index} aria-hidden>
@@ -69,7 +78,7 @@ export function About() {
                 {site.about.meta.map((row) => (
                   <div key={row.label} className="flex justify-between gap-6 border-b border-line py-4">
                     <dt className="label text-muted">{row.label}</dt>
-                    <dd className="text-right">{row.value}</dd>
+                    <dd className="text-end">{row.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -77,7 +86,7 @@ export function About() {
 
             <Reveal>
               <a href={site.cvUrl} download className="group btn mt-12">
-                Download CV
+                {dict.common.downloadCv}
                 <Download className="size-4 transition-transform duration-500 group-hover:translate-y-0.5" aria-hidden />
               </a>
             </Reveal>

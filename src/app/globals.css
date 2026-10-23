@@ -1,64 +1,87 @@
 @import "tailwindcss";
+@import "../styles/palettes.css";
 
 /* ------------------------------------------------------------------ */
-/* Design tokens                                                       */
+/* Variants                                                            */
+/* ------------------------------------------------------------------ */
+
+/* ur:... applies to anything inside an Urdu page (or a lang="ur" fragment). */
+@custom-variant ur (&:where(:lang(ur), :lang(ur) *));
+
+/* ------------------------------------------------------------------ */
+/* Design tokens: colour (Colour kit v6)                               */
+/* The values live in styles/palettes.css. Utilities read them live,   */
+/* so a palette or theme change reaches every class at once.           */
 /* ------------------------------------------------------------------ */
 @theme inline {
-  --color-ink: #0b0b0c;
-  --color-surface: #131315;
-  --color-line: rgba(236, 235, 230, 0.14);
-  --color-faint: #86857f;
-  --color-muted: #a9a8a2;
-  --color-paper: #ecebe6;
-  --color-accent: #5cf2c4;
+  --color-page: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-fg: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* accent: fill, text on the fill, text on the page (large / small), tint, hover, press, edge, focus line */
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-accent-small: var(--accent-small);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-edge: var(--accent-edge);
+  --color-accent-line: var(--accent-line);
 
-  /* Medium rounding for buttons, tags and tabs: between square and pill. */
-  --radius-ui: 0.625rem;
+  --color-dis-fg: var(--dis-fg);
+  --color-dis-bg: var(--dis-bg);
+  --color-dis-bd: var(--dis-bd);
 
-  /* Type scale (each size carries its own line height, tracking and weight) */
-  --text-hero: clamp(4.5rem, 16vw, 17rem);
-  --text-hero--line-height: 0.82;
-  --text-hero--letter-spacing: -0.04em;
-  --text-hero--font-weight: 800;
+  /* status colours: identical in every palette */
+  --color-ok: var(--ok-solid);
+  --color-ok-fg: var(--ok-fg);
+  --color-ok-tx: var(--ok-tx);
+  --color-ok-bg: var(--ok-bg);
+  --color-ok-bd: var(--ok-bd);
+  --color-warn: var(--warn-solid);
+  --color-warn-fg: var(--warn-fg);
+  --color-warn-tx: var(--warn-tx);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-bd: var(--warn-bd);
+  --color-bad: var(--bad-solid);
+  --color-bad-fg: var(--bad-fg);
+  --color-bad-tx: var(--bad-tx);
+  --color-bad-bg: var(--bad-bg);
+  --color-bad-bd: var(--bad-bd);
+  --color-info: var(--info-solid);
+  --color-info-fg: var(--info-fg);
+  --color-info-tx: var(--info-tx);
+  --color-info-bg: var(--info-bg);
+  --color-info-bd: var(--info-bd);
+}
 
-  --text-section: clamp(3rem, 9vw, 9rem);
-  --text-section--line-height: 0.9;
-  --text-section--letter-spacing: -0.035em;
-  --text-section--font-weight: 700;
+/* ------------------------------------------------------------------ */
+/* Design tokens: radius, containers (Foundations kit)                 */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* none = 0, xs 4, sm 8, md 12 (the radius of buttons, tags, cards), lg 16, xl 24, full = rounded-full */
+  --radius-*: initial;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 
-  --text-heading: clamp(3rem, 6.5vw, 6.5rem);
-  --text-heading--line-height: 0.92;
-  --text-heading--letter-spacing: -0.04em;
-  --text-heading--font-weight: 800;
-
-  --text-statement: clamp(1.75rem, 4.2vw, 4rem);
-  --text-statement--line-height: 1.12;
-  --text-statement--letter-spacing: -0.02em;
-  --text-statement--font-weight: 500;
-
-  --text-row: clamp(1.75rem, 4vw, 3.5rem);
-  --text-row--line-height: 1;
-  --text-row--letter-spacing: -0.025em;
-  --text-row--font-weight: 700;
-
-  --text-numeral: clamp(3rem, 6vw, 5.5rem);
-  --text-numeral--line-height: 1;
-  --text-numeral--letter-spacing: -0.03em;
-  --text-numeral--font-weight: 800;
-
-  --text-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
-  --text-lead--line-height: 1.55;
-
-  --text-label: 0.6875rem;
-  --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.2em;
-
-  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out-expo: cubic-bezier(0.76, 0, 0.24, 1);
+  /* max-w-xs ... max-w-xl for text, max-w-page for the page */
+  --container-*: initial;
+  --container-xs: 28rem;
+  --container-sm: 36rem;
+  --container-md: 48rem;
+  --container-lg: 56rem;
+  --container-xl: 72rem;
+  --container-page: 112.5rem;
 
   --animate-marquee: marquee 45s linear infinite;
   --animate-grain: grain 0.9s steps(4) infinite;
@@ -91,47 +114,244 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Design tokens: fonts, type scale (Typography kit, Set A)            */
+/* "static" keeps every variable in the output, so the Urdu overrides  */
+/* below always have something to replace.                             */
+/* ------------------------------------------------------------------ */
+@theme static {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Code stays in JetBrains Mono on every page, whatever the language. */
+  --font-code: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Arabic-script UI face, used for the language switch label. */
+  --font-arabic: var(--font-noto-arabic), var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-expo: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --text-hero: clamp(4.5rem, 16vw, 17rem);
+  --text-hero--line-height: 0.82;
+  --text-hero--letter-spacing: -0.04em;
+  --text-hero--font-weight: 800;
+
+  --text-section: clamp(3rem, 9vw, 9rem);
+  --text-section--line-height: 0.9;
+  --text-section--letter-spacing: -0.035em;
+  --text-section--font-weight: 700;
+
+  --text-heading: clamp(3rem, 6.5vw, 6.5rem);
+  --text-heading--line-height: 0.92;
+  --text-heading--letter-spacing: -0.04em;
+  --text-heading--font-weight: 800;
+
+  /* One step added to the kit: the title of a case-study block and of a post. Replaces three ad-hoc clamp() values. */
+  --text-title: clamp(2.25rem, 5vw, 4.5rem);
+  --text-title--line-height: 0.95;
+  --text-title--letter-spacing: -0.03em;
+  --text-title--font-weight: 800;
+
+  --text-statement: clamp(1.75rem, 4.2vw, 4rem);
+  --text-statement--line-height: 1.12;
+  --text-statement--letter-spacing: -0.02em;
+  --text-statement--font-weight: 500;
+
+  --text-row: clamp(1.75rem, 4vw, 3.5rem);
+  --text-row--line-height: 1;
+  --text-row--letter-spacing: -0.025em;
+  --text-row--font-weight: 700;
+
+  --text-numeral: clamp(3rem, 6vw, 5.5rem);
+  --text-numeral--line-height: 1;
+  --text-numeral--letter-spacing: -0.03em;
+  --text-numeral--font-weight: 800;
+
+  --text-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+  --text-lead--line-height: 1.55;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.2em;
+  --text-label--font-weight: 400;
+}
+
+/* ------------------------------------------------------------------ */
+/* Urdu: fonts, type scale, no tracking, no italics                    */
+/* Unlayered on purpose: these must win over the theme layer.          */
+/* ------------------------------------------------------------------ */
+:lang(ur) {
+  --font-display: var(--font-nastaliq), var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-nastaliq), var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  /* The mono face carries labels and UI text: Noto Sans Arabic reads better small than Nastaliq. */
+  --font-mono: var(--font-noto-arabic), var(--font-jetbrains), ui-sans-serif, system-ui, sans-serif;
+
+  --text-hero: clamp(3rem, 10vw, 10.5rem);
+  --text-hero--line-height: 1.5;
+  --text-hero--letter-spacing: 0;
+  --text-hero--font-weight: 700;
+
+  --text-section: clamp(2.25rem, 5.6vw, 5.6rem);
+  --text-section--line-height: 1.5;
+  --text-section--letter-spacing: 0;
+  --text-section--font-weight: 700;
+
+  --text-heading: clamp(2.25rem, 4.3vw, 4.3rem);
+  --text-heading--line-height: 1.5;
+  --text-heading--letter-spacing: 0;
+  --text-heading--font-weight: 700;
+
+  --text-title: clamp(1.9rem, 3.6vw, 3.4rem);
+  --text-title--line-height: 1.5;
+  --text-title--letter-spacing: 0;
+  --text-title--font-weight: 700;
+
+  --text-statement: clamp(1.5rem, 3.4vw, 3.2rem);
+  --text-statement--line-height: 1.8;
+  --text-statement--letter-spacing: 0;
+  --text-statement--font-weight: 400;
+
+  --text-row: clamp(1.4rem, 3.1vw, 2.7rem);
+  --text-row--line-height: 1.6;
+  --text-row--letter-spacing: 0;
+  --text-row--font-weight: 700;
+
+  --text-numeral--line-height: 1.1;
+  --text-numeral--letter-spacing: 0;
+
+  --text-lead: clamp(1.2rem, 1.6vw, 1.45rem);
+  --text-lead--line-height: 2;
+
+  --text-body: 1.125rem;
+  --text-body--line-height: 2;
+
+  --text-small: 1rem;
+  --text-small--line-height: 1.9;
+
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.7;
+  --text-label--letter-spacing: 0;
+  --text-label--font-weight: 500;
+
+  /* The Tailwind scale, retuned for Nastaliq: a little larger, much taller lines. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.9;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.9;
+  --text-base: 1.125rem;
+  --text-base--line-height: 2;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 2;
+  --text-xl: 1.375rem;
+  --text-xl--line-height: 1.9;
+  --text-2xl: 1.625rem;
+  --text-2xl--line-height: 1.7;
+  --text-3xl: 2.1rem;
+  --text-3xl--line-height: 1.6;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 1.55;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.5;
+  --text-6xl: 3.4rem;
+  --text-6xl--line-height: 1.5;
+  --text-7xl: 4rem;
+  --text-7xl--line-height: 1.5;
+  --text-8xl: 5.2rem;
+  --text-8xl--line-height: 1.5;
+
+  /* leading-tight and friends */
+  --leading-tight: 1.6;
+  --leading-snug: 1.7;
+  --leading-normal: 1.9;
+  --leading-relaxed: 2;
+  --leading-loose: 2.1;
+
+  /* Joined letters must never be pulled apart. */
+  --tracking-tighter: 0;
+  --tracking-tight: 0;
+  --tracking-normal: 0;
+  --tracking-wide: 0;
+  --tracking-wider: 0;
+  --tracking-widest: 0;
+}
+
+:lang(ur) * {
+  letter-spacing: 0 !important;
+  font-style: normal;
+}
+
+/* Latin text inside an Urdu line (names, URLs, e-mail, code) keeps its own direction and spacing. */
+:lang(ur) bdi,
+:lang(ur) [dir="ltr"] {
+  unicode-bidi: isolate;
+}
+
 /* Stacking order. Use as z-(--z-header) etc. */
 :root {
+  --z-raised: 10;
   --z-menu: 140;
   --z-header: 150;
+  --z-popover: 160;
   --z-grain: 200;
   --z-curtain: 250;
   --z-preloader: 300;
   --z-cursor: 400;
+  --z-skip: 500;
 
-  color-scheme: dark;
+  /* +1 in a left-to-right page, -1 in a right-to-left one: multiplies every sideways nudge. */
+  --dir: 1;
+}
+
+html[dir="rtl"] {
+  --dir: -1;
 }
 
 /* ------------------------------------------------------------------ */
 /* Base                                                                */
 /* ------------------------------------------------------------------ */
 html {
-  background: var(--color-ink);
+  background: var(--bg);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
+:lang(ur) body,
+body:lang(ur) {
+  hyphens: none;
+}
+
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-ink);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+  outline: 2px solid var(--accent-line);
+  outline-offset: 2px;
+}
+
+/* On a flat accent surface (the menu) the focus ring switches to the ink colour. */
+[data-on-accent] :focus-visible,
+[data-on-accent]:focus-visible {
+  outline-color: var(--accent-ink);
 }
 
 img,
@@ -149,19 +369,15 @@ html[data-preloaded] .preloader {
 /* makes the scrollbar appear or disappear, and the page never shifts sideways. */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-faint) var(--color-ink);
+  scrollbar-color: var(--faint) var(--bg);
   scrollbar-gutter: stable;
 }
 
-/* While the mint menu is open (Menu sets data-menu-open) the scrollbar gutter turns mint too. */
+/* While the accent menu is open (Menu sets data-menu-open) the scrollbar gutter turns accent too. */
 /* The attribute is removed as soon as the menu starts to close, so both directions fade over the wipe. */
-html {
-  transition: background-color 0.7s var(--ease-in-out-expo);
-}
-
 html[data-menu-open] {
-  background: var(--color-accent);
-  scrollbar-color: var(--color-ink) var(--color-accent);
+  background: var(--accent);
+  scrollbar-color: var(--accent-ink) var(--accent);
 }
 
 /* Hide the native cursor only when the custom cursor is running */
@@ -170,9 +386,21 @@ html.cursor-active * {
   cursor: none !important;
 }
 
+/* A language change crosses documents: fade instead of a hard cut. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+}
+
 /* ------------------------------------------------------------------ */
 /* Layout utilities                                                    */
 /* ------------------------------------------------------------------ */
+
+/* Page gutter: 24 / 40 / 64 px at the 48rem and 80rem breakpoints. */
 @utility gutter {
   padding-inline: 1.5rem;
   @media (width >= 48rem) {
@@ -185,85 +413,258 @@ html.cursor-active * {
 
 @utility container-page {
   width: 100%;
-  max-width: 1800px;
+  max-width: var(--container-page);
   margin-inline: auto;
 }
 
+/* The one fluid section rhythm: 72 px on a phone, 144 px on a wide screen. */
 @utility section-pad {
   padding-block: clamp(72px, 9vw, 144px);
 }
 
-/* Mono label, e.g. "( Work )" */
+/* Label, e.g. "( Work )": mono and uppercase in English, a clean sans without tracking in Urdu. */
 @utility label {
   font-family: var(--font-mono);
   font-size: var(--text-label);
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
+  font-weight: var(--text-label--font-weight);
   text-transform: uppercase;
 }
 
-/* Outlined text, used for every second word in the marquee */
+/* Outlined text, used for every second word in the marquee and for the large numerals */
 @utility text-stroke {
   color: transparent;
-  -webkit-text-stroke: 1px var(--color-paper);
+  -webkit-text-stroke: 1px var(--text);
 }
 
-/* Button with medium rounding */
+/* Hover colour for outlined text: place on the same element, trigger with group-hover. */
+@utility text-stroke-accent {
+  -webkit-text-stroke-color: var(--accent-text);
+}
+
+/* Button: 12 x 24 padding, 12 gap, 44 px tall on touch screens. */
 @utility btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
-  padding: 0.85rem 1.4rem;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-ui);
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
   font-family: var(--font-mono);
   font-size: var(--text-label);
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
+  font-weight: var(--text-label--font-weight);
   text-transform: uppercase;
   transition:
     border-color 0.4s var(--ease-out-expo),
     color 0.4s var(--ease-out-expo),
     background-color 0.4s var(--ease-out-expo);
+  @media (pointer: coarse) {
+    min-height: 2.75rem;
+  }
   &:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+    border-color: var(--accent-line);
+    color: var(--accent-small);
+  }
+  &:active {
+    border-color: var(--accent-active);
+  }
+  &:disabled,
+  &[aria-disabled="true"] {
+    border-color: var(--dis-bd);
+    background: var(--dis-bg);
+    color: var(--dis-fg);
+    pointer-events: none;
   }
 }
 
-/* Small tag or chip with medium rounding */
+/* Square or round icon-only control: 44 x 44 px, always. */
+@utility icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  transition:
+    border-color 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo),
+    background-color 0.4s var(--ease-out-expo);
+}
+
+/* Small tag or chip: 8 x 12 padding. */
 @utility tag {
   display: inline-block;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-ui);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
   font-family: var(--font-mono);
   font-size: var(--text-label);
   line-height: var(--text-label--line-height);
   letter-spacing: 0.12em;
+  font-weight: var(--text-label--font-weight);
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--muted);
 }
 
 /* Skip link, visible only when focused */
 @utility skip-link {
   position: fixed;
   top: 0.75rem;
-  left: 0.75rem;
-  z-index: 500;
+  inset-inline-start: 0.75rem;
+  z-index: var(--z-skip);
   padding: 0.5rem 1rem;
-  border-radius: var(--radius-ui);
-  background: var(--color-accent);
-  color: var(--color-ink);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
   font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
+  font-weight: var(--text-label--font-weight);
   text-transform: uppercase;
   transform: translateY(-200%);
   transition: transform 0.3s var(--ease-out-expo);
   &:focus {
     transform: translateY(0);
   }
+}
+
+/* Directional arrow: flips in a right-to-left page (forward and back arrows only). */
+@utility mirror {
+  [dir="rtl"] & {
+    scale: -1 1;
+  }
+}
+
+/* Sideways nudge on hover. Positive pushes "forward", whichever way the page reads. */
+@utility nudge-1 {
+  translate: calc(var(--dir) * 0.25rem) 0;
+}
+@utility nudge-2 {
+  translate: calc(var(--dir) * 0.5rem) 0;
+}
+/* Up and forward by 2 px: the arrow of an external link. */
+@utility nudge-ne {
+  translate: calc(var(--dir) * 0.125rem) -0.125rem;
+}
+@utility nudge-4 {
+  translate: calc(var(--dir) * 1rem) 0;
+}
+@utility nudge-3 {
+  translate: calc(var(--dir) * 0.75rem) 0;
+}
+@utility nudge-6 {
+  translate: calc(var(--dir) * 1.5rem) 0;
+}
+@utility nudge-8 {
+  translate: calc(var(--dir) * 2rem) 0;
+}
+
+/* Larger hit area for small links, without moving anything: the pseudo-element is invisible and 24 px or more. */
+@utility tap {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block: -0.625rem;
+    inset-inline: -0.25rem;
+  }
+}
+
+/* Hero name: one line per word, as large as the screen allows. */
+@utility hero-name {
+  font-family: var(--font-display);
+  font-size: min(19.5vw, 30svh);
+  line-height: 0.82;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  &:lang(ur) {
+    font-size: min(15vw, 19svh);
+    line-height: 1.45;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+}
+
+/* "Let's work together" in the footer. */
+@utility display-contact {
+  font-family: var(--font-display);
+  font-size: min(14vw, 17svh);
+  line-height: 0.85;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  &:lang(ur) {
+    font-size: min(10vw, 12svh);
+    line-height: 1.5;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+}
+
+/* Links of the full-screen menu. */
+@utility display-menu {
+  font-family: var(--font-display);
+  font-size: min(6.4vw, 10svh);
+  line-height: 0.95;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  @media (width >= 48rem) {
+    font-size: min(5.6vw, 11svh);
+  }
+  &:lang(ur) {
+    font-size: min(5.2vw, 8svh);
+    line-height: 1.5;
+    font-weight: 700;
+    letter-spacing: 0;
+    @media (width >= 48rem) {
+      font-size: min(4.4vw, 9svh);
+    }
+  }
+}
+
+/* Theme toggle icons. The sun shows in the dark theme (it switches to light), the moon in the light theme. */
+/* Done in CSS so the right icon is there on first paint, before React has loaded. */
+.theme-sun {
+  display: block;
+}
+.theme-moon {
+  display: none;
+}
+html[data-theme="light"] .theme-sun {
+  display: none;
+}
+html[data-theme="light"] .theme-moon {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mesh gradient (Colour kit): three radial blooms of the accent over  */
+/* the page colour, glow top right and bottom right, quiet bottom left */
+/* so text stays readable. Strengths come from --mesh-a/b/c.            */
+/* ------------------------------------------------------------------ */
+@utility mesh {
+  background-image:
+    radial-gradient(
+      55% 75% at 88% 8%,
+      color-mix(in srgb, var(--accent) var(--mesh-a), var(--bg)) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      48% 62% at 100% 100%,
+      color-mix(in srgb, var(--accent) var(--mesh-b), var(--bg)) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 50% at 62% 55%,
+      color-mix(in srgb, var(--accent) var(--mesh-c), var(--bg)) 0%,
+      transparent 72%
+    );
 }
 
 /* ------------------------------------------------------------------ */
@@ -277,10 +678,19 @@ html.cursor-active * {
   transition: background-size 0.5s var(--ease-out-expo);
 }
 
+[dir="rtl"] .link-sweep {
+  background-position: 0% 100%;
+}
+
 .link-sweep:hover,
 .link-sweep:focus-visible {
   background-position: 0% 100%;
   background-size: 100% 1px;
+}
+
+[dir="rtl"] .link-sweep:hover,
+[dir="rtl"] .link-sweep:focus-visible {
+  background-position: 100% 100%;
 }
 
 /* ------------------------------------------------------------------ */
@@ -300,10 +710,8 @@ html.cursor-active * {
   animation: var(--animate-grain);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .grain {
-    animation: none;
-  }
+html[data-theme="light"] .grain {
+  opacity: 0.04;
 }
 
 /* ------------------------------------------------------------------ */
@@ -314,6 +722,13 @@ html.cursor-active * {
   syntax: "<integer>";
   inherits: false;
   initial-value: 0;
+}
+
+/* Urdu-Indic digits for the Urdu counter. */
+@counter-style ur-digits {
+  system: numeric;
+  symbols: "۰" "۱" "۲" "۳" "۴" "۵" "۶" "۷" "۸" "۹";
+  pad: 2 "۰";
 }
 
 @keyframes preloader-count {
@@ -343,9 +758,17 @@ html.cursor-active * {
   content: counter(preloader-n, decimal-leading-zero);
 }
 
+html[lang="ur"] .preloader-count::before {
+  content: counter(preloader-n, ur-digits);
+}
+
 .preloader-bar {
   transform-origin: left;
   animation: preloader-bar 1.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+html[dir="rtl"] .preloader-bar {
+  transform-origin: right;
 }
 
 /* ------------------------------------------------------------------ */
@@ -374,14 +797,21 @@ html.lenis body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Highlighted code (shiki). The theme sets inline colours, the block sets the rest. */
+/* Highlighted code (shiki). Two themes are rendered into the markup;  */
+/* the colour of each token follows the page theme. Code is always     */
+/* left to right, in JetBrains Mono, whatever the page language.       */
 /* ------------------------------------------------------------------ */
+.code-block {
+  direction: ltr;
+  text-align: left;
+}
+
 .code-block pre {
   margin: 0;
   padding: 1.5rem;
   overflow-x: auto;
   background: transparent !important;
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.8125rem;
   line-height: 1.75;
   tab-size: 2;
@@ -389,6 +819,16 @@ html.lenis body {
 
 .code-block code {
   font-family: inherit;
+}
+
+.code-block .shiki,
+.code-block .shiki span {
+  color: var(--shiki-dark);
+}
+
+html[data-theme="light"] .code-block .shiki,
+html[data-theme="light"] .code-block .shiki span {
+  color: var(--shiki-light);
 }
 
 @media (width >= 48rem) {
@@ -399,9 +839,22 @@ html.lenis body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Reduced motion                                                      */
+/* Reduced motion: no animation, and palette or theme changes are instant. */
 /* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --palette-duration: 0s;
+  }
+
+  .grain {
+    animation: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+
   *,
   *::before,
   *::after {

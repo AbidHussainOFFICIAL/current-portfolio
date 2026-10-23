@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react"
 
 import { CoverImage } from "@/components/ui/cover-image"
 import { TransitionLink } from "@/components/ui/transition-link"
+import { useDictionary } from "@/i18n/locale-provider"
 import type { Cover } from "@/types/content"
 
 export interface SplitScrollTile {
@@ -17,16 +18,17 @@ interface ColumnProps {
   tiles: SplitScrollTile[]
   y: MotionValue<number>
   columnRef: React.RefObject<HTMLDivElement | null>
+  cursorLabel: string
 }
 
-function Column({ tiles, y, columnRef }: ColumnProps) {
+function Column({ tiles, y, columnRef, cursorLabel }: ColumnProps) {
   return (
     <motion.div ref={columnRef} style={{ y }} className="flex flex-col gap-[3vh] py-[3vh] will-change-transform">
       {tiles.map((tile, index) => (
         <TransitionLink
           key={`${tile.slug}-${index}`}
           href={`/work/${tile.slug}`}
-          data-cursor="View"
+          data-cursor={cursorLabel}
           className="group relative block aspect-[3/4] overflow-hidden bg-surface md:aspect-[16/10]"
         >
           <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
@@ -42,6 +44,8 @@ function Column({ tiles, y, columnRef }: ColumnProps) {
 interface SplitScrollProps {
   left: SplitScrollTile[]
   right: SplitScrollTile[]
+  /** The two lines of the big title, e.g. ["Selected", "Works"]. */
+  titleLines: [string, string]
 }
 
 /**
@@ -49,7 +53,8 @@ interface SplitScrollProps {
  * middle of the screen (Kern). Each column moves exactly as far as it is taller than the screen,
  * so the pictures never run out and never leave a gap, whatever the number of tiles.
  */
-export function SplitScroll({ left, right }: SplitScrollProps) {
+export function SplitScroll({ left, right, titleLines }: SplitScrollProps) {
+  const dict = useDictionary()
   const wrapperRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const leftRef = useRef<HTMLDivElement>(null)
@@ -81,7 +86,7 @@ export function SplitScroll({ left, right }: SplitScrollProps) {
     return () => observer.disconnect()
   }, [leftTravel, rightTravel])
 
-  // The left column starts at its top and ends at its bottom. The right one does the opposite.
+  // The first column starts at its top and ends at its bottom. The second one does the opposite.
   const yLeft = useTransform([scrollYProgress, leftTravel], (values: number[]) => -values[0] * values[1])
   const yRight = useTransform([scrollYProgress, rightTravel], (values: number[]) => -(1 - values[0]) * values[1])
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.92, 1, 0.92])
@@ -90,9 +95,9 @@ export function SplitScroll({ left, right }: SplitScrollProps) {
     <div ref={wrapperRef} className="relative h-[300vh]">
       <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
         <div className="grid h-full w-full grid-cols-2 items-start gap-[3vh] px-[3vh] md:grid-cols-[1fr_1.2fr_1fr] md:px-[6vw]">
-          <Column tiles={left} y={yLeft} columnRef={leftRef} />
+          <Column tiles={left} y={yLeft} columnRef={leftRef} cursorLabel={dict.cursor.view} />
           <div className="hidden md:block" />
-          <Column tiles={right} y={yRight} columnRef={rightRef} />
+          <Column tiles={right} y={yRight} columnRef={rightRef} cursorLabel={dict.cursor.view} />
         </div>
 
         {/* White text with the difference blend: it inverts whatever picture is behind it. */}
@@ -100,10 +105,10 @@ export function SplitScroll({ left, right }: SplitScrollProps) {
           style={{ scale }}
           className="pointer-events-none absolute inset-0 flex items-center justify-center mix-blend-difference"
         >
-          <h2 className="text-center font-display text-[13vw] leading-[0.85] font-extrabold tracking-tighter text-white uppercase md:text-[9vw]">
-            Selected
+          <h2 className="text-center font-display text-[13vw] leading-[0.85] font-extrabold tracking-tighter text-white uppercase md:text-[9vw] ur:text-[10vw] ur:leading-[1.4] ur:font-bold ur:md:text-[7vw]">
+            {titleLines[0]}
             <br />
-            Works
+            {titleLines[1]}
           </h2>
         </motion.div>
       </div>

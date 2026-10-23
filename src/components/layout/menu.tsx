@@ -4,9 +4,10 @@ import { AnimatePresence, motion } from "motion/react"
 import { useLenis } from "lenis/react"
 import { useEffect } from "react"
 
+import { Preferences } from "@/components/ui/preferences"
 import { TransitionLink } from "@/components/ui/transition-link"
 import { navItems } from "@/content/nav"
-import { site } from "@/content/site"
+import { useDictionary, useLocale, useSite } from "@/i18n/locale-provider"
 import { EASE_IN_OUT } from "@/lib/motion"
 import { pad2 } from "@/lib/format"
 
@@ -23,6 +24,9 @@ interface MenuProps {
  */
 export function Menu({ open, current, onClose }: MenuProps) {
   const lenis = useLenis()
+  const locale = useLocale()
+  const dict = useDictionary()
+  const site = useSite()
 
   // Tint the page scrollbar gutter with the menu. Removed the moment the menu starts closing.
   useEffect(() => {
@@ -55,20 +59,21 @@ export function Menu({ open, current, onClose }: MenuProps) {
           id="site-menu"
           role="dialog"
           aria-modal="true"
-          aria-label="Menu"
+          aria-label={dict.common.menu}
+          data-on-accent
           // w-screen also covers the reserved scrollbar gutter, so no dark strip shows beside the menu.
-          className="fixed top-0 left-0 z-(--z-menu) flex h-svh w-screen flex-col overflow-hidden bg-accent pt-[5.5rem] text-ink"
+          className="fixed start-0 top-0 z-(--z-menu) flex h-svh w-screen flex-col overflow-hidden bg-accent pt-24 text-accent-ink"
           initial={{ clipPath: "inset(0 0 100% 0)" }}
           animate={{ clipPath: "inset(0 0 0% 0)" }}
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.7, ease: EASE_IN_OUT }}
         >
-          <nav aria-label="Primary" className="min-h-0 flex-1 border-t border-ink/15">
+          <nav aria-label={dict.common.primaryNav} className="min-h-0 flex-1 border-t border-accent-ink/15">
             <ul className="grid h-full grid-cols-2 grid-rows-4">
               {navItems.map((item, index) => (
                 <li
                   key={item.id}
-                  className="min-h-0 overflow-hidden border-b border-ink/15 odd:border-r"
+                  className="min-h-0 overflow-hidden border-b border-accent-ink/15 odd:border-e"
                 >
                   <motion.div
                     className="h-full"
@@ -85,14 +90,14 @@ export function Menu({ open, current, onClose }: MenuProps) {
                       aria-current={current === item.id ? "true" : undefined}
                       className="group flex h-full flex-col justify-between px-5 py-4 md:px-10 md:py-6 xl:px-16"
                     >
-                      <span className="flex items-center justify-between text-xs font-medium text-ink/50 tabular-nums md:text-sm">
-                        {pad2(index + 1)}
+                      <span className="flex items-center justify-between text-xs font-medium text-accent-ink/70 tabular-nums md:text-sm">
+                        {pad2(index + 1, locale)}
                         {current === item.id ? (
-                          <span aria-hidden className="size-2.5 rounded-full bg-ink" />
+                          <span aria-hidden className="size-2.5 rounded-full bg-accent-ink" />
                         ) : null}
                       </span>
-                      <span className="block font-display text-[length:min(6.4vw,10svh)] leading-[0.95] font-medium tracking-[-0.03em] transition-transform duration-500 group-hover:translate-x-3 md:text-[length:min(5.6vw,11svh)] md:group-hover:translate-x-6">
-                        {item.label}
+                      <span className="display-menu block transition-transform duration-500 group-hover:nudge-3 md:group-hover:nudge-6">
+                        {dict.nav[item.id]}
                       </span>
                     </TransitionLink>
                   </motion.div>
@@ -102,13 +107,17 @@ export function Menu({ open, current, onClose }: MenuProps) {
           </nav>
 
           <motion.div
-            className="gutter container-page flex flex-wrap gap-x-8 gap-y-2 py-4 md:gap-x-10 md:py-5"
+            className="gutter container-page flex flex-wrap items-center gap-x-8 gap-y-1 py-3 md:gap-x-10 md:py-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <a href={`mailto:${site.email}`} className="label link-sweep pb-1 text-ink/70 hover:text-ink">
+            <a
+              href={`mailto:${site.email}`}
+              dir="ltr"
+              className="label link-sweep tap pb-1 text-accent-ink/80 hover:text-accent-ink"
+            >
               {site.email}
             </a>
             {site.socials.map((social) => (
@@ -117,12 +126,13 @@ export function Menu({ open, current, onClose }: MenuProps) {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="label link-sweep pb-1 text-ink/70 hover:text-ink"
+                className="label link-sweep tap pb-1 text-accent-ink/80 hover:text-accent-ink"
               >
                 {social.label}
-                <span className="sr-only"> (opens in a new tab)</span>
+                <span className="sr-only"> {dict.common.opensInNewTab}</span>
               </a>
             ))}
+            <Preferences className="ms-auto sm:hidden" />
           </motion.div>
         </motion.div>
       ) : null}

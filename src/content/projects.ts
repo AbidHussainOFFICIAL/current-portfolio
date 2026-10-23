@@ -8,6 +8,7 @@ import type { Cover, Project } from "@/types/content"
 // - `stack` entries marked CONFIRM are inferred from the résumé skills.
 // - `decisions` and `learned` are draft wording. Edit them so they match what you really did.
 // - Snippets with `dummy: true` are placeholder code. Snippets with `file` are real files from this repository.
+// - `palette`: the colour palette of the project's page (Colour kit). Home is Violet; Legal Case Management uses Harbor.
 // - `links.repo`: leave it out while a repository is private. The GitHub button only shows when it is set.
 
 const art = (name: string, alt: string): Cover => ({ src: `/images/work/${name}.jpg`, alt })
@@ -23,6 +24,7 @@ export const projects: Project[] = [
     stack: ["PWA", "Next.js", "Node.js", "MongoDB", "Cloudinary", "Vercel"],
     // The repository is private for now, so there is no `repo` link.
     links: { live: "https://zivora-abaya.vercel.app/" },
+    palette: "violet",
     cover: art("zivora-cover", "Placeholder art for the Zivora project"),
     intro: "A full e-commerce progressive web app for a Pakistani modest-fashion brand.",
     summary:
@@ -106,6 +108,7 @@ export const cartTotal = (lines: CartLine[]) =>
     stack: ["React", "Node.js", "Express.js", "MongoDB", "REST API", "Vercel"],
     // The repository is private for now, so there is no `repo` link.
     links: { live: "https://attorney-platform.vercel.app/" },
+    palette: "harbor",
     cover: art("legal-cover", "Placeholder art for the Legal Case Management project"),
     intro: "A case-tracking platform for legal practices, from client records to case status.",
     summary:
@@ -180,6 +183,7 @@ router.patch("/:id/status", requireAuth, async (req, res) => {
     role: "Design and development",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Motion", "Lenis"],
     // Add `links: { repo: "https://github.com/AbidHussainOFFICIAL/<repository>" }` when the repository is public.
+    palette: "violet",
     cover: art("portfolio-cover", "Placeholder art for the portfolio project"),
     intro: "This site: an editorial, motion-led portfolio built with Next.js and TypeScript.",
     summary:

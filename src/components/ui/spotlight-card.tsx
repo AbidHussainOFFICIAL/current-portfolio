@@ -7,7 +7,7 @@ interface SpotlightCardProps {
   className?: string
 }
 
-/** A card with a soft mint light that follows the pointer, and an accent border on hover. */
+/** A card with a soft accent light that follows the pointer, and an accent border on hover. */
 export function SpotlightCard({ children, className }: SpotlightCardProps) {
   return (
     <div
@@ -17,7 +17,7 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
         event.currentTarget.style.setProperty("--my", `${event.clientY - rect.top}px`)
       }}
       className={cn(
-        "group relative h-full overflow-hidden rounded-ui border border-line bg-surface transition-[border-color,transform] duration-500 ease-out-expo hover:-translate-y-1 hover:border-accent/60",
+        "group relative h-full overflow-hidden rounded-md border border-line bg-surface transition-[border-color,transform] duration-500 ease-out-expo hover:-translate-y-1 hover:border-accent-edge",
         className,
       )}
     >
@@ -26,7 +26,7 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(92 242 196 / 0.14), transparent 60%)",
+            "radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%)",
         }}
       />
       <div className="relative flex h-full flex-col">{children}</div>

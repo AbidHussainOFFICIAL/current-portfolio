@@ -9,16 +9,16 @@ interface ArrowLinkProps {
   className?: string
 }
 
-/** Mono label link with an arrow that nudges forward on hover. */
+/** Label link with an arrow that nudges forward on hover (and points the other way in Urdu). */
 export function ArrowLink({ href, children, className }: ArrowLinkProps) {
   return (
     <TransitionLink
       href={href}
-      className={cn("group label inline-flex items-center gap-3 text-paper", className)}
+      className={cn("group label inline-flex min-h-11 items-center gap-3 text-fg", className)}
     >
       <span className="link-sweep pb-1">{children}</span>
       <ArrowRight
-        className="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-1.5"
+        className="mirror size-4 transition-transform duration-500 ease-out-expo group-hover:nudge-2"
         aria-hidden
       />
     </TransitionLink>

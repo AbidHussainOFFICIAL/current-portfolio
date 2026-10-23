@@ -11,5 +11,8 @@ export const LOGO_LETTERS =
 export const LOGO_FRAME =
   "M14 0h36a14 14 0 0 1 14 14v36a14 14 0 0 1-14 14H14A14 14 0 0 1 0 50V14A14 14 0 0 1 14 0Z"
 
-/** The full app mark: mint gradient square, ink letters. Used where a static SVG file is not possible. */
-export const LOGO_MARK_GRADIENT = ["#8CFFE0", "#1FB88F"] as const
+/** Violet ramp 300 to 500 (Colour kit): the app mark gradient. Used where a static SVG file is not possible. */
+export const LOGO_MARK_GRADIENT = ["#CEC9FF", "#A99BFF"] as const
+
+/** Ink colour of the letters on the mark. */
+export const LOGO_INK = "#0B0B0C"

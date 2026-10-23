@@ -54,12 +54,18 @@ export interface SiteConfig {
   cvUrl: string
 }
 
+/** Ids of the navigation links. Each one has a label in the dictionary (nav.<id>). */
+export type NavId = "work" | "about" | "services" | "experience" | "certificates" | "skills" | "posts" | "contact"
+
 export interface NavItem {
-  label: string
-  /** Section id on the home page. */
-  id: string
+  /** Section id on the home page; also the key of the label in the dictionary. */
+  id: NavId
+  /** Language-free path. TransitionLink adds the language. */
   href: string
 }
+
+/** Colour palettes of the brand kit. Violet is the site default; each case study can use its own. */
+export type Palette = "violet" | "saffron" | "ember" | "harbor"
 
 /** A code excerpt shown with syntax highlighting on a project page. */
 export interface CodeSnippet {
@@ -95,6 +101,8 @@ export interface Project {
     live?: string
     repo?: string
   }
+  /** Colour palette of the project's page and of its row on the home page. */
+  palette: Palette
   cover: Cover
   /** One or two sentences, shown under the title. */
   intro: string
@@ -158,6 +166,82 @@ export interface Certificate {
 }
 
 export interface Testimonial {
+  text: string
+  author: string
+  role: string
+}
+
+/* ------------------------------------------------------------------ */
+/* Translation overlays (src/content/ur). Each one carries only the words that change between    */
+/* languages. Links, dates, tech names, images and numbers always come from the English file.     */
+/* ------------------------------------------------------------------ */
+
+export interface SiteText {
+  name: string
+  role: string
+  city: string
+  country: string
+  description: string
+  intro: string
+  portraitAlt: string
+  /** Same order as `stats` in the English file. */
+  statLabels: string[]
+  about: {
+    statement: string
+    paragraphs: string[]
+    meta: MetaRow[]
+  }
+  quote: ParallaxQuote
+}
+
+export interface ProjectText {
+  title: string
+  category: string
+  role: string
+  intro: string
+  summary: string
+  features: string[]
+  decisions: Decision[]
+  learned: string[]
+  /** Same order as `snippets` in the English file. */
+  snippets: { title: string; description: string }[]
+  coverAlt: string
+  /** Same order as `gallery` in the English file. */
+  galleryAlt: string[]
+}
+
+export interface PostText {
+  title: string
+  excerpt: string
+  body: string[]
+  quote: string
+  coverAlt: string
+}
+
+export interface ServiceText {
+  name: string
+  description: string
+  tags: string[]
+}
+
+export interface RoleText {
+  title: string
+  organisation: string
+  description: string
+  tags: string[]
+}
+
+export interface SkillGroupText {
+  name: string
+}
+
+export interface CertificateText {
+  title: string
+  issuer: string
+  type: string
+}
+
+export interface TestimonialText {
   text: string
   author: string
   role: string

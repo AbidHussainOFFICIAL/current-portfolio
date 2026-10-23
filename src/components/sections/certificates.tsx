@@ -3,17 +3,24 @@ import { Award } from "lucide-react"
 import { Reveal } from "@/components/ui/reveal"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
-import { certificates } from "@/content/certificates"
-import { pad2 } from "@/lib/format"
+import type { Locale } from "@/i18n/config"
+import { getDictionary } from "@/i18n/dictionaries"
+import { getCertificates } from "@/lib/content"
+import { fmt, pad2 } from "@/lib/format"
 
 /** Credential cards: a big outlined year, the title, then the issuer and type. */
-export function Certificates() {
+export function Certificates({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+  const certificates = getCertificates(locale)
   if (certificates.length === 0) return null
 
   return (
     <section id="certificates" className="section-pad">
       <div className="gutter container-page">
-        <SectionHeading title="Certificates" meta={`${pad2(certificates.length)} credentials`} />
+        <SectionHeading
+          title={dict.certificates.title}
+          meta={fmt(dict.certificates.count, { n: pad2(certificates.length, locale) }, locale)}
+        />
 
         <ul className="grid gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
           {certificates.map((certificate, index) => (
@@ -21,10 +28,10 @@ export function Certificates() {
               <Reveal delay={(index % 3) * 0.08} className="h-full">
                 <SpotlightCard className="p-6 md:p-8">
                   <div className="flex items-start justify-between gap-4">
-                    <span className="font-display text-numeral text-transparent [-webkit-text-stroke:1px_var(--color-paper)] transition-[-webkit-text-stroke-color] duration-500 group-hover:[-webkit-text-stroke-color:var(--color-accent)]">
+                    <span className="font-display text-numeral text-stroke transition-[-webkit-text-stroke-color] duration-500 group-hover:text-stroke-accent">
                       {certificate.year}
                     </span>
-                    <span className="grid size-11 shrink-0 place-items-center rounded-ui border border-line text-accent transition-colors duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-ink">
+                    <span className="grid size-11 shrink-0 place-items-center rounded-md border border-line-strong text-accent-small transition-colors duration-500 group-hover:border-accent-edge group-hover:bg-accent group-hover:text-accent-ink">
                       <Award className="size-5" aria-hidden />
                     </span>
                   </div>

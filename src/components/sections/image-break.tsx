@@ -4,11 +4,15 @@ import { motion, useScroll, useTransform } from "motion/react"
 import Image from "next/image"
 import { useRef } from "react"
 
-import { site } from "@/content/site"
+import { useSite } from "@/i18n/locale-provider"
 import { EASE_OUT } from "@/lib/motion"
 
-/** Full-screen parallax picture with a large quote over it. */
+/**
+ * Full-screen parallax picture with a large quote over it. Text over a picture is always white,
+ * on a 60% black scrim (Colour kit), whatever the theme or palette.
+ */
 export function ImageBreak() {
+  const site = useSite()
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"])
@@ -20,11 +24,11 @@ export function ImageBreak() {
         {/* DUMMY image: replace /public/images/parallax.jpg with your own picture. */}
         <Image src="/images/parallax.jpg" alt="" fill sizes="100vw" className="object-cover" />
       </motion.div>
-      <div className="absolute inset-0 bg-black/40" />
+      <div aria-hidden className="absolute inset-0 bg-black/60" />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
         <motion.p
-          className="label mb-6 text-paper/80"
+          className="label mb-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -34,7 +38,7 @@ export function ImageBreak() {
         </motion.p>
 
         <motion.blockquote
-          className="max-w-4xl font-display text-3xl leading-tight font-bold tracking-tight md:text-6xl"
+          className="max-w-lg font-display text-statement"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-120px" }}
@@ -51,7 +55,7 @@ export function ImageBreak() {
         </motion.blockquote>
 
         <motion.p
-          className="label mt-8 text-paper/70"
+          className="label mt-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

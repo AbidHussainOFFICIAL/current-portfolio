@@ -2,10 +2,13 @@
 
 import { useSyncExternalStore } from "react"
 
+import { useLocale } from "@/i18n/locale-provider"
+import { digits } from "@/lib/format"
+
 interface LiveClockProps {
   /** IANA time zone, e.g. "Asia/Karachi". */
   timeZone: string
-  /** Short place code shown before the time, e.g. "KHI". */
+  /** Short place code or label shown before the time, e.g. "KHI". */
   label: string
   className?: string
 }
@@ -26,6 +29,7 @@ function readTime(timeZone: string) {
 
 /** Local time for a place. Shows a placeholder on the server so hydration always matches. */
 export function LiveClock({ timeZone, label, className }: LiveClockProps) {
+  const locale = useLocale()
   const time = useSyncExternalStore(
     subscribe,
     () => readTime(timeZone),
@@ -34,7 +38,7 @@ export function LiveClock({ timeZone, label, className }: LiveClockProps) {
 
   return (
     <span className={className}>
-      {label} {time}
+      {label} <bdi>{digits(time, locale)}</bdi>
     </span>
   )
 }

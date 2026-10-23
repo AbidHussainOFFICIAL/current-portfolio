@@ -12,8 +12,16 @@ async function readSource(snippet: CodeSnippet): Promise<string> {
   throw new Error(`Snippet "${snippet.title}" needs either "code" or "file".`)
 }
 
-/** Highlighted HTML for a snippet. Runs on the server, so no highlighter is sent to the browser. */
+/**
+ * Highlighted HTML for a snippet. Runs on the server, so no highlighter is sent to the browser.
+ * Both a light and a dark theme are rendered into the markup (as --shiki-light / --shiki-dark on every
+ * token); globals.css picks the one that matches the page theme, so switching theme needs no re-render.
+ */
 export async function highlightSnippet(snippet: CodeSnippet): Promise<string> {
   const source = (await readSource(snippet)).replace(/\r\n/g, "\n").trimEnd()
-  return codeToHtml(source, { lang: snippet.language, theme: "github-dark-default" })
+  return codeToHtml(source, {
+    lang: snippet.language,
+    themes: { light: "github-light-default", dark: "github-dark-default" },
+    defaultColor: false,
+  })
 }

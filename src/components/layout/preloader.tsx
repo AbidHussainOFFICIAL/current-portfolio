@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { useEffect, useState } from "react"
 
 import { usePreloaded } from "@/hooks/use-preloaded"
-import { site } from "@/content/site"
+import { useDictionary, useSite } from "@/i18n/locale-provider"
 import { DURATION, EASE_IN_OUT } from "@/lib/motion"
 import { PRELOADER_MS, preloaderStore } from "@/lib/preloader-store"
 
@@ -13,6 +13,8 @@ import { PRELOADER_MS, preloaderStore } from "@/lib/preloader-store"
  * CSS (see globals.css) so they start on first paint. React only decides when to slide it away.
  */
 export function Preloader() {
+  const site = useSite()
+  const dict = useDictionary()
   const done = usePreloaded()
   const reduced = useReducedMotion()
   const [leaving, setLeaving] = useState(false)
@@ -41,8 +43,8 @@ export function Preloader() {
   return (
     <motion.div
       role="status"
-      aria-label="Loading"
-      className="preloader fixed inset-0 z-(--z-preloader) flex flex-col justify-between bg-ink gutter py-8"
+      aria-label={dict.common.loading}
+      className="preloader fixed inset-0 z-(--z-preloader) flex flex-col justify-between bg-page gutter py-8"
       animate={{ y: leaving ? "-100%" : "0%" }}
       transition={{ duration: DURATION.slow, ease: EASE_IN_OUT }}
       onAnimationComplete={() => {
@@ -54,13 +56,13 @@ export function Preloader() {
         <span>{site.city}</span>
       </div>
 
-      <p aria-hidden className="font-display text-hero text-paper tabular-nums">
+      <p aria-hidden className="font-display text-hero text-fg tabular-nums">
         <span className="preloader-count" />
       </p>
 
       <div>
         <div className="h-px w-full bg-line">
-          <div className="preloader-bar h-full bg-accent" />
+          <div className="preloader-bar h-full bg-accent-line" />
         </div>
         <p className="label mt-4 text-muted">{site.role}</p>
       </div>

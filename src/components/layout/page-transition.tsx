@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { useLenis } from "lenis/react"
 
+import { splitLocale } from "@/i18n/config"
 import { DURATION, EASE_IN_OUT } from "@/lib/motion"
 
 type Phase = "idle" | "covering" | "revealing"
@@ -58,8 +59,10 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
       const hash = hashIndex >= 0 ? href.slice(hashIndex) : ""
       const path = href.replace(/[#?].*$/, "") || pathname
 
-      // Same page: scroll instead of navigating.
-      if (path === pathname) {
+      // Same page (same language, same path): scroll instead of navigating.
+      const here = splitLocale(pathname)
+      const there = splitLocale(path)
+      if (here.locale === there.locale && here.path === there.path) {
         if (hash.length > 1) {
           const element = document.getElementById(hash.slice(1))
           if (element) {
@@ -109,7 +112,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
           }
         }}
       >
-        <div className="absolute inset-x-0 top-0 h-px bg-accent" />
+        <div className="absolute inset-x-0 top-0 h-px bg-accent-line" />
       </motion.div>
     </PageTransitionContext.Provider>
   )

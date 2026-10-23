@@ -1,0 +1,548 @@
+/*
+ * Colour tokens from the brand kit (Colour, version 6). Generated, so change the kit and regenerate
+ * instead of editing the numbers by hand.
+ *
+ * - One shared black and white base for every palette; only the accent family changes.
+ * - Palette: <html data-palette="violet | saffron | ember | harbor">. Violet is the default.
+ * - Theme: <html data-theme="dark | light">. The head script sets it from the saved choice or the system.
+ * - Status colours (ok, warn, bad, info) are identical in every palette.
+ * - Every colour token is registered, so a palette or theme change glides instead of jumping.
+ */
+
+@property --bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0B0B0C;
+}
+
+@property --surface {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #141416;
+}
+
+@property --raised {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1C1C1F;
+}
+
+@property --text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F2F2F0;
+}
+
+@property --muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A5A6A5;
+}
+
+@property --faint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #848584;
+}
+
+@property --line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2B2B2C;
+}
+
+@property --line-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #686868;
+}
+
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A99BFF;
+}
+
+@property --accent-ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0B0B0C;
+}
+
+@property --accent-text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A99BFF;
+}
+
+@property --accent-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #24232F;
+}
+
+@property --accent-deep {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #C5BFFF;
+}
+
+@property --accent-edge {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A99BFF;
+}
+
+@property --mark {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --dis-fg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6D6D6D;
+}
+
+@property --dis-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #171718;
+}
+
+@property --dis-bd {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #313131;
+}
+
+@property --accent-hover {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #B8AFFE;
+}
+
+@property --accent-line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A99BFF;
+}
+
+@property --accent-small {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A99BFF;
+}
+
+@property --accent-active {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #9D8AED;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #0B0B0C;
+  --surface: #141416;
+  --raised: #1C1C1F;
+  --text: #F2F2F0;
+  --muted: #A5A6A5;
+  --faint: #848584;
+  --line: #2B2B2C;
+  --line-strong: #686868;
+  --accent: #A99BFF;
+  --accent-ink: #0B0B0C;
+  --accent-text: #A99BFF;
+  --accent-soft: #24232F;
+  --accent-deep: #C5BFFF;
+  --accent-edge: #A99BFF;
+  --mark: transparent;
+  --dis-fg: #6D6D6D;
+  --dis-bg: #171718;
+  --dis-bd: #313131;
+  --accent-hover: #B8AFFE;
+  --accent-line: #A99BFF;
+  --accent-small: #A99BFF;
+  --accent-active: #9D8AED;
+  --ok-fg: #FFFFFF;
+  --ok-solid: #288546;
+  --ok-strong: #00672D;
+  --ok-bg: #1A241E;
+  --ok-tx: #83DC97;
+  --ok-bd: #6BA778;
+  --warn-fg: #0B0B0C;
+  --warn-solid: #DD9431;
+  --warn-strong: #D27C00;
+  --warn-bg: #2F261E;
+  --warn-tx: #F0BA59;
+  --warn-bd: #E8B375;
+  --bad-fg: #FFFFFF;
+  --bad-solid: #D53B45;
+  --bad-strong: #B20E29;
+  --bad-bg: #301D1E;
+  --bad-tx: #FFAAA7;
+  --bad-bd: #E77978;
+  --info-fg: #FFFFFF;
+  --info-solid: #2A75D1;
+  --info-strong: #0057B1;
+  --info-bg: #1A2230;
+  --info-tx: #9EC7FE;
+  --info-bd: #699DE0;
+  --mesh-a: 85%;
+  --mesh-b: 45%;
+  --mesh-c: 22%;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #F6F6F4;
+  --surface: #FBFBFA;
+  --raised: #FFFFFF;
+  --text: #0F0F11;
+  --muted: #545556;
+  --faint: #6E6E6F;
+  --line: #D6D6D4;
+  --line-strong: #8A8A8B;
+  --accent: #A99BFF;
+  --accent-ink: #0B0B0C;
+  --accent-text: #7060BD;
+  --accent-soft: #F1F1FC;
+  --accent-deep: #57459F;
+  --accent-edge: #746BAD;
+  --mark: transparent;
+  --dis-fg: #79797A;
+  --dis-bg: #E6E6E4;
+  --dis-bd: #C1C1C0;
+  --accent-hover: #A191F4;
+  --accent-line: #7060BD;
+  --accent-small: #7060BD;
+  --accent-active: #9A87E9;
+  --ok-fg: #FFFFFF;
+  --ok-solid: #288546;
+  --ok-strong: #00672D;
+  --ok-bg: #EAF3EC;
+  --ok-tx: #00672D;
+  --ok-bd: #00672D;
+  --warn-fg: #0B0B0C;
+  --warn-solid: #DD9431;
+  --warn-strong: #D27C00;
+  --warn-bg: #FBEEE1;
+  --warn-tx: #D27C00;
+  --warn-bd: #D27C00;
+  --bad-fg: #FFFFFF;
+  --bad-solid: #D53B45;
+  --bad-strong: #B20E29;
+  --bad-bg: #FEEDEC;
+  --bad-tx: #B20E29;
+  --bad-bd: #B20E29;
+  --info-fg: #FFFFFF;
+  --info-solid: #2A75D1;
+  --info-strong: #0057B1;
+  --info-bg: #EAF1FC;
+  --info-tx: #0057B1;
+  --info-bd: #0057B1;
+  --mesh-a: 70%;
+  --mesh-b: 38%;
+  --mesh-c: 18%;
+}
+
+:root[data-palette="saffron"],
+:root:not([data-palette]):has([data-page-palette="saffron"]) {
+  --bg: #0B0B0C;
+  --surface: #141416;
+  --raised: #1C1C1F;
+  --text: #F2F2F0;
+  --muted: #A5A6A5;
+  --faint: #848584;
+  --line: #2B2B2C;
+  --line-strong: #686868;
+  --accent: #FFB84A;
+  --accent-ink: #0B0B0C;
+  --accent-text: #FFB84A;
+  --accent-soft: #2D261F;
+  --accent-deep: #FFD293;
+  --accent-edge: #FFB84A;
+  --mark: transparent;
+  --dis-fg: #6D6D6D;
+  --dis-bg: #171718;
+  --dis-bd: #313131;
+  --accent-hover: #FFCE8C;
+  --accent-line: #FFB84A;
+  --accent-small: #FFB84A;
+  --accent-active: #F3A43D;
+}
+
+:root[data-palette="ember"],
+:root:not([data-palette]):has([data-page-palette="ember"]) {
+  --bg: #0B0B0C;
+  --surface: #141416;
+  --raised: #1C1C1F;
+  --text: #F2F2F0;
+  --muted: #A5A6A5;
+  --faint: #848584;
+  --line: #2B2B2C;
+  --line-strong: #686868;
+  --accent: #FF7458;
+  --accent-ink: #0B0B0C;
+  --accent-text: #FF7458;
+  --accent-soft: #2E201F;
+  --accent-deep: #FFA894;
+  --accent-edge: #FF7458;
+  --mark: transparent;
+  --dis-fg: #6D6D6D;
+  --dis-bg: #171718;
+  --dis-bd: #313131;
+  --accent-hover: #FE927B;
+  --accent-line: #FF7458;
+  --accent-small: #FF7458;
+  --accent-active: #ED634F;
+}
+
+:root[data-palette="harbor"],
+:root:not([data-palette]):has([data-page-palette="harbor"]) {
+  --bg: #0B0B0C;
+  --surface: #141416;
+  --raised: #1C1C1F;
+  --text: #F2F2F0;
+  --muted: #A5A6A5;
+  --faint: #848584;
+  --line: #2B2B2C;
+  --line-strong: #686868;
+  --accent: #89B6F7;
+  --accent-ink: #0B0B0C;
+  --accent-text: #89B6F7;
+  --accent-soft: #21262E;
+  --accent-deep: #B2D0FB;
+  --accent-edge: #89B6F7;
+  --mark: transparent;
+  --dis-fg: #6D6D6D;
+  --dis-bg: #171718;
+  --dis-bd: #313131;
+  --accent-hover: #9FC6FF;
+  --accent-line: #89B6F7;
+  --accent-small: #89B6F7;
+  --accent-active: #7BA6E6;
+}
+
+:root[data-palette="saffron"][data-theme="light"],
+:root:not([data-palette]):has([data-page-palette="saffron"])[data-theme="light"] {
+  --bg: #F6F6F4;
+  --surface: #FBFBFA;
+  --raised: #FFFFFF;
+  --text: #0F0F11;
+  --muted: #545556;
+  --faint: #6E6E6F;
+  --line: #D6D6D4;
+  --line-strong: #8A8A8B;
+  --accent: #FFB84A;
+  --accent-ink: #0B0B0C;
+  --accent-text: #B68700;
+  --accent-soft: #FDF4E9;
+  --accent-deep: #795800;
+  --accent-edge: #DDA044;
+  --mark: transparent;
+  --dis-fg: #79797A;
+  --dis-bg: #E6E6E4;
+  --dis-bd: #C1C1C0;
+  --accent-hover: #F8AD41;
+  --accent-line: #B68700;
+  --accent-small: #8F6900;
+  --accent-active: #F0A139;
+}
+
+:root[data-palette="ember"][data-theme="light"],
+:root:not([data-palette]):has([data-page-palette="ember"])[data-theme="light"] {
+  --bg: #F6F6F4;
+  --surface: #FBFBFA;
+  --raised: #FFFFFF;
+  --text: #0F0F11;
+  --muted: #545556;
+  --faint: #6E6E6F;
+  --line: #D6D6D4;
+  --line-strong: #8A8A8B;
+  --accent: #FF7458;
+  --accent-ink: #0B0B0C;
+  --accent-text: #B54D38;
+  --accent-soft: #FDF1EC;
+  --accent-deep: #96311D;
+  --accent-edge: #AD5341;
+  --mark: transparent;
+  --dis-fg: #79797A;
+  --dis-bg: #E6E6E4;
+  --dis-bd: #C1C1C0;
+  --accent-hover: #F46A52;
+  --accent-line: #B54D38;
+  --accent-small: #B54D38;
+  --accent-active: #EA604C;
+}
+
+:root[data-palette="harbor"][data-theme="light"],
+:root:not([data-palette]):has([data-page-palette="harbor"])[data-theme="light"] {
+  --bg: #F6F6F4;
+  --surface: #FBFBFA;
+  --raised: #FFFFFF;
+  --text: #0F0F11;
+  --muted: #545556;
+  --faint: #6E6E6F;
+  --line: #D6D6D4;
+  --line-strong: #8A8A8B;
+  --accent: #89B6F7;
+  --accent-ink: #0B0B0C;
+  --accent-text: #466FAB;
+  --accent-soft: #EEF4FA;
+  --accent-deep: #2C548E;
+  --accent-edge: #5F7DA8;
+  --mark: transparent;
+  --dis-fg: #79797A;
+  --dis-bg: #E6E6E4;
+  --dis-bd: #C1C1C0;
+  --accent-hover: #81ACED;
+  --accent-line: #466FAB;
+  --accent-small: #466FAB;
+  --accent-active: #78A3E3;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+  --bg: #F6F6F4;
+    --surface: #FBFBFA;
+    --raised: #FFFFFF;
+    --text: #0F0F11;
+    --muted: #545556;
+    --faint: #6E6E6F;
+    --line: #D6D6D4;
+    --line-strong: #8A8A8B;
+    --accent: #A99BFF;
+    --accent-ink: #0B0B0C;
+    --accent-text: #7060BD;
+    --accent-soft: #F1F1FC;
+    --accent-deep: #57459F;
+    --accent-edge: #746BAD;
+    --mark: transparent;
+    --dis-fg: #79797A;
+    --dis-bg: #E6E6E4;
+    --dis-bd: #C1C1C0;
+    --accent-hover: #A191F4;
+    --accent-line: #7060BD;
+    --accent-small: #7060BD;
+    --accent-active: #9A87E9;
+    --ok-fg: #FFFFFF;
+    --ok-solid: #288546;
+    --ok-strong: #00672D;
+    --ok-bg: #EAF3EC;
+    --ok-tx: #00672D;
+    --ok-bd: #00672D;
+    --warn-fg: #0B0B0C;
+    --warn-solid: #DD9431;
+    --warn-strong: #D27C00;
+    --warn-bg: #FBEEE1;
+    --warn-tx: #D27C00;
+    --warn-bd: #D27C00;
+    --bad-fg: #FFFFFF;
+    --bad-solid: #D53B45;
+    --bad-strong: #B20E29;
+    --bad-bg: #FEEDEC;
+    --bad-tx: #B20E29;
+    --bad-bd: #B20E29;
+    --info-fg: #FFFFFF;
+    --info-solid: #2A75D1;
+    --info-strong: #0057B1;
+    --info-bg: #EAF1FC;
+    --info-tx: #0057B1;
+    --info-bd: #0057B1;
+    --mesh-a: 70%;
+    --mesh-b: 38%;
+    --mesh-c: 18%;
+  }
+
+  :root:not([data-theme])[data-palette="saffron"],
+  :root:not([data-theme]):not([data-palette]):has([data-page-palette="saffron"]) {
+    --bg: #F6F6F4;
+    --surface: #FBFBFA;
+    --raised: #FFFFFF;
+    --text: #0F0F11;
+    --muted: #545556;
+    --faint: #6E6E6F;
+    --line: #D6D6D4;
+    --line-strong: #8A8A8B;
+    --accent: #FFB84A;
+    --accent-ink: #0B0B0C;
+    --accent-text: #B68700;
+    --accent-soft: #FDF4E9;
+    --accent-deep: #795800;
+    --accent-edge: #DDA044;
+    --mark: transparent;
+    --dis-fg: #79797A;
+    --dis-bg: #E6E6E4;
+    --dis-bd: #C1C1C0;
+    --accent-hover: #F8AD41;
+    --accent-line: #B68700;
+    --accent-small: #8F6900;
+    --accent-active: #F0A139;
+  }
+
+  :root:not([data-theme])[data-palette="ember"],
+  :root:not([data-theme]):not([data-palette]):has([data-page-palette="ember"]) {
+    --bg: #F6F6F4;
+    --surface: #FBFBFA;
+    --raised: #FFFFFF;
+    --text: #0F0F11;
+    --muted: #545556;
+    --faint: #6E6E6F;
+    --line: #D6D6D4;
+    --line-strong: #8A8A8B;
+    --accent: #FF7458;
+    --accent-ink: #0B0B0C;
+    --accent-text: #B54D38;
+    --accent-soft: #FDF1EC;
+    --accent-deep: #96311D;
+    --accent-edge: #AD5341;
+    --mark: transparent;
+    --dis-fg: #79797A;
+    --dis-bg: #E6E6E4;
+    --dis-bd: #C1C1C0;
+    --accent-hover: #F46A52;
+    --accent-line: #B54D38;
+    --accent-small: #B54D38;
+    --accent-active: #EA604C;
+  }
+
+  :root:not([data-theme])[data-palette="harbor"],
+  :root:not([data-theme]):not([data-palette]):has([data-page-palette="harbor"]) {
+    --bg: #F6F6F4;
+    --surface: #FBFBFA;
+    --raised: #FFFFFF;
+    --text: #0F0F11;
+    --muted: #545556;
+    --faint: #6E6E6F;
+    --line: #D6D6D4;
+    --line-strong: #8A8A8B;
+    --accent: #89B6F7;
+    --accent-ink: #0B0B0C;
+    --accent-text: #466FAB;
+    --accent-soft: #EEF4FA;
+    --accent-deep: #2C548E;
+    --accent-edge: #5F7DA8;
+    --mark: transparent;
+    --dis-fg: #79797A;
+    --dis-bg: #E6E6E4;
+    --dis-bd: #C1C1C0;
+    --accent-hover: #81ACED;
+    --accent-line: #466FAB;
+    --accent-small: #466FAB;
+    --accent-active: #78A3E3;
+  }
+
+}
+
+/* A palette or theme change glides. Reduced motion makes it instant (see globals.css). */
+:root {
+  --palette-duration: 0.7s;
+  transition: --bg var(--palette-duration) var(--ease-in-out-expo), --surface var(--palette-duration) var(--ease-in-out-expo), --raised var(--palette-duration) var(--ease-in-out-expo), --text var(--palette-duration) var(--ease-in-out-expo), --muted var(--palette-duration) var(--ease-in-out-expo), --faint var(--palette-duration) var(--ease-in-out-expo), --line var(--palette-duration) var(--ease-in-out-expo), --line-strong var(--palette-duration) var(--ease-in-out-expo), --accent var(--palette-duration) var(--ease-in-out-expo), --accent-ink var(--palette-duration) var(--ease-in-out-expo), --accent-text var(--palette-duration) var(--ease-in-out-expo), --accent-soft var(--palette-duration) var(--ease-in-out-expo), --accent-deep var(--palette-duration) var(--ease-in-out-expo), --accent-edge var(--palette-duration) var(--ease-in-out-expo), --mark var(--palette-duration) var(--ease-in-out-expo), --dis-fg var(--palette-duration) var(--ease-in-out-expo), --dis-bg var(--palette-duration) var(--ease-in-out-expo), --dis-bd var(--palette-duration) var(--ease-in-out-expo), --accent-hover var(--palette-duration) var(--ease-in-out-expo), --accent-line var(--palette-duration) var(--ease-in-out-expo), --accent-small var(--palette-duration) var(--ease-in-out-expo), --accent-active var(--palette-duration) var(--ease-in-out-expo), background-color var(--palette-duration) var(--ease-in-out-expo);
+}
